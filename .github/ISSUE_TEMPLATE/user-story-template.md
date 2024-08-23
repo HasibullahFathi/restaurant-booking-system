@@ -10,8 +10,8 @@ assignees: ''
 As a **role** I can **capability** so that **received benefit**
 
 
-## Acceptance Criteria
+## Acceptance Criteria:
 
 - AC 1 
 - AC 2 
-- AC 3
+- AC 3 
