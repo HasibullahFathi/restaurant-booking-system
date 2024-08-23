@@ -1,1 +1,1 @@
-web: gunicorn red_chillies.wsgi
+web: gunicorn red_chillies.wsgi --log-file -
