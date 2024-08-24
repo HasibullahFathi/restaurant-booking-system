@@ -32,10 +32,33 @@ class Booking(models.Model):
     number_of_guests = models.IntegerField()
     STATUS_CHOICES = ((1, 'Confirmed'), (0, 'Cancelled'))
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    remarks = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ["-created_on"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=['table', 'booking_date', 'booking_time', 'status'],
+                name='unique_booking_per_table_per_time'
+            )
+        ]
 
     def __str__(self):
         return f"Booking {self.id} by {self.user.username}"
+
+    def clean(self):
+        # Check if a booking already exists for this table, date, and time
+        conflicting_bookings = Booking.objects.filter(
+            table=self.table,
+            booking_date=self.booking_date,
+            booking_time=self.booking_time,
+            status=1
+        ).exclude(id=self.id)
+        
+        if conflicting_bookings.exists():
+            raise ValidationError("This table is already booked for the selected date and time.")
+
+    def save(self, *args, **kwargs):
+        self.clean()  # Call clean method to validate
+        super().save(*args, **kwargs)
     
