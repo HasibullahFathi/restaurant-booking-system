@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %}
 
-<h1>My Bookings</h1>
+<h2>My Bookings</h2>
 
 {% if bookings %}
 <table class="table table-striped">
@@ -51,5 +51,16 @@
 {% else %}
 <p>No bookings available.</p>
 {% endif %}
-
+{% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 {% endblock %}

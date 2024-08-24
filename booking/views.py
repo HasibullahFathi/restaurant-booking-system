@@ -9,6 +9,7 @@ class BookingList(ListView):
     queryset = Booking.objects.all().order_by("-created_on")
     template_name = 'booking/booking.html'
     context_object_name = 'bookings'  # This sets the name of the context variable
+    paginate_by = 8
 
 
 def index(request):
