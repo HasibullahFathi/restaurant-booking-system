@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=15)
-    ROLE_CHOICES = [('1', 'Admin'), ('0', 'Customer')]
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='0')
+    ROLE_CHOICES = ((1, 'Admin'), (0, 'Customer'))
+    role = models.IntegerField(choices=ROLE_CHOICES, default=0)
 
     def __str__(self):
         return self.user.username
@@ -30,8 +30,12 @@ class Booking(models.Model):
     booking_time = models.TimeField()
     created_on = models.DateTimeField(auto_now_add=True)
     number_of_guests = models.IntegerField()
-    STATUS_CHOICES = [('1', 'Confirmed'), ('0', 'Cancelled')]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1')
+    STATUS_CHOICES = ((1, 'Confirmed'), (0, 'Cancelled'))
+    status = models.IntegerField(choices=STATUS_CHOICES, default=1)
+
+    class Meta:
+        ordering = ["-created_on"]
 
     def __str__(self):
         return f"Booking {self.id} by {self.user.username}"
+    
