@@ -1,10 +1,11 @@
 {% load static %}
 {% load i18n %}
 {% url 'home' as home_url %}
-{% url 'booking' as booking_url %}
+<!-- {% url 'booking' as booking_url %} -->
+{% url 'about' as about_url %}
+{% url 'menu' as menu_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
-{% url 'account_logout' as logout_url %}
 
 
 
@@ -48,13 +49,13 @@
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home' %}">Home</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Menu</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Contact</a></li>
                     {% if user.is_authenticated %}
                     <!-- Logout Button with POST Form -->
                     <li class="nav-item">
                         <form method="post" action="{% url 'account_logout' %}">
                             {% csrf_token %}
-                            <button class="btn btn-link nav-link px-lg-3 py-3 py-lg-4 logout-btn text-white" type="submit">
+                            <button class="btn btn-link nav-link px-lg-3 py-3 py-lg-4 nav-style"
+                                type="submit">
                                 {% trans "Logout" %}
                             </button>
                         </form>
@@ -72,12 +73,6 @@
 
     <!-- Page Header-->
     <header class="masthead" style="background-image: url('{% static 'images/home-bg.jpg' %}')">
-
-        {% if user.is_authenticated %}
-        <p class="login-badge text-end m-3 text-white">Logged in as {{ user }}</p>
-        {% else %}
-        <p class="login-badge text-end m-3 text-white">You are not logged in</p>
-        {% endif %}
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
