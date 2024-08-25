@@ -18,3 +18,8 @@ html, body {
     padding: 20px 0;
     text-align: center;
 }
+
+.login-badge {
+    position: relative;
+    top: -5em;
+}

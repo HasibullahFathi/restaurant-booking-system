@@ -48,27 +48,25 @@
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Menu</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">About</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Contact</a></li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_logout' %}">Logout</a>
-                    </li>
+                    {% if user.is_authenticated %}      
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'account_logout' %}">Logout</a></li>
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_signup' %}">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_login' %}">Login</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'account_signup' %}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'account_login' %}">Login</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
+    
     <!-- Page Header-->
     <header class="masthead" style="background-image: url('{% static 'images/home-bg.jpg' %}')">
+        
+        {% if user.is_authenticated %}
+        <p class="login-badge text-end m-3 text-white">Logged in as {{ user }}</p>
+        {% else %}
+        <p class="login-badge text-end m-3 text-white">You are not logged in</p>
+        {% endif %}
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">

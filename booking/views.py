@@ -44,10 +44,10 @@ def create_booking(request):
             booking = form.save(commit=False)
             booking.user = request.user  # Automatically assign the logged-in user
             booking.save()
-            messages.success(request, "Your booking has been successfully created!")
-            return redirect('booking_list')  # Redirect to your booking list or a success page
+            # messages.success(request, "Your booking has been successfully created!")
+            messages.add_message(request, messages.SUCCESS, 'Your booking has been successfully created!')
         else:
-            messages.error(request, "There was an error with your booking.")
+            messages.add_message(request, messages.ERROR, 'There was an error with your booking.')
     else:
         form = BookingForm()
 
