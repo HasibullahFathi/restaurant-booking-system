@@ -31,7 +31,7 @@
                 <td>{{ booking.booking_time|time:"H:i" }}</td>
                 <td>{{ booking.number_of_guests }}</td>
                 <td>
-                    <span class="badge {% if booking.status == 1 %}badge-success{% else %}badge-danger{% endif %}">
+                    <span class="badge {% if booking.status == 1 %}bg-success{% else %}bg-danger{% endif %}">
                         {{ booking.get_status_display }}
                     </span>
                 </td>

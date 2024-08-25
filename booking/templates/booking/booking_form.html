@@ -62,6 +62,13 @@
                     </div>
                 </div>
 
+                <!-- Phone number -->
+                 <div class="form-floating">
+                    <input class="form-control" id="phone" name="phone_number" type="tel"
+                        value="{{ form.phone_number.value }}" placeholder="Phone number..." />
+                    <label for="phone">Phone Number</label>
+                </div>
+
                 <!-- Remarks (optional) -->
                 <div class="form-floating">
                     <textarea class="form-control" name="remarks" id="remarks">{{ form.remarks.value }}</textarea>

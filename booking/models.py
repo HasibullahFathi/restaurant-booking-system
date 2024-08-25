@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=15)
     ROLE_CHOICES = ((1, 'Admin'), (0, 'Customer'))
     role = models.IntegerField(choices=ROLE_CHOICES, default=0)
 
@@ -21,11 +20,11 @@ class Table(models.Model):
     def __str__(self):
         return f"Table {self.table_number}"
 
-
 # 3. Booking Model
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # The user who makes the booking
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)  # The table being booked
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=15, null=True) 
     booking_date = models.DateField()
     booking_time = models.TimeField()
     created_on = models.DateTimeField(auto_now_add=True)
