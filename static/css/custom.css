@@ -23,3 +23,11 @@ html, body {
     position: relative;
     top: -5em;
 }
+
+.logout-btn {
+    font-size: small;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+  
