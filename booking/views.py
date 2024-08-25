@@ -1,15 +1,29 @@
 from django.views.generic import ListView, DetailView
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from.models import Booking
+from.models import Booking, Profile
+from.forms import BookingForm
+from django.http import Http404
 
 # Create your views here.
 
-class BookingList(ListView):
+class BookingList(LoginRequiredMixin, ListView):
     queryset = Booking.objects.all().order_by("-created_on")
     template_name = 'booking/booking.html'
     context_object_name = 'bookings'  # This sets the name of the context variable
     paginate_by = 8
+
+    def get_queryset(self):
+        try:
+            profile = Profile.objects.get(user=self.request.user)
+        except Profile.DoesNotExist:
+            raise Http404("Profile does not exist for the user.")
+
+        if profile.role == 1:  # Admin role
+            return Booking.objects.all()
+        else:  # Regular user (Customer)
+            return Booking.objects.filter(user=self.request.user)
 
 class BookingDetail(DetailView):
     model = Booking
@@ -20,5 +34,14 @@ def index(request):
     return render(request, 'booking/index.html')
     
 
-def book_table(request):
-    return render(request, 'booking/book_table.html')
+def create_booking(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST, user=request.user)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.save()
+            return redirect('booking_list')
+    else:
+        form = BookingForm(user=request.user)
+    return render(request, 'booking/booking_form.html', {'form': form})

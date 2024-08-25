@@ -1,7 +1,6 @@
-<!-- using template inheritance  -->
-{% extends "base.html"%}
-{% load static %}
+{% extends "base.html" %}
 {% block content %}
+{% load static %}
 
 <h1>Book a Table</h1>
 <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -9,72 +8,76 @@
         <p>Book a table for a specific date and time. Please fill in the details below.</p>
         <div class="my-5">
             <form id="bookingForm" method="POST">
+                {% csrf_token %}
+
+                <!-- Name field -->
                 <div class="form-floating">
-                    <input class="form-control" name="name" id="name" type="text" placeholder="Enter your name..."
-                        data-sb-validations="required" />
+                    <input class="form-control" name="name" id="name" type="text" value="{{ form.name.value }}"
+                        placeholder="Enter your name..." data-sb-validations="required" />
                     <label for="name">Name</label>
                     <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                 </div>
+
+                <!-- Email field -->
                 <div class="form-floating">
-                    <input class="form-control" id="email" name="email" type="email" placeholder="Enter your email..."
-                        data-sb-validations="required,email" />
+                    <input class="form-control" id="email" name="email" type="email" value="{{ form.email.value }}"
+                        placeholder="Enter your email..." data-sb-validations="required,email" />
                     <label for="email">Email address</label>
                     <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                     <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                 </div>
+
+                <!-- Phone field -->
                 <div class="form-floating">
-                    <input class="form-control" id="phone" name="phone" type="tel"
+                    <input class="form-control" id="phone" name="phone" type="tel" value="{{ form.phone.value }}"
                         placeholder="Enter your phone number..." data-sb-validations="required" />
                     <label for="phone">Phone Number</label>
                     <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
                 </div>
+
+                <!-- Table field -->
                 <div class="form-floating">
-                    <select class="form-select" id="table" name="table" aria-label="Table selection"
-                        data-sb-validations="required">
+                    <select class="form-select" id="table" name="table" data-sb-validations="required">
                         <option value="" selected>Select a table</option>
-                        <!-- Example table options, replace with dynamic options as needed -->
-                        <option value="1">{{table.table_number}}</option>
+                        {% for table in form.fields.table.queryset %}
+                            <option value="{{ table.id }}" {% if table.id == form.table.value %}selected{% endif %}>{{ table.table_number }}</option>
+                        {% endfor %}
                     </select>
                     <label for="table">Table</label>
                     <div class="invalid-feedback" data-sb-feedback="table:required">Please select a table.</div>
                 </div>
+
+                <!-- Date field -->
                 <div class="form-floating">
-                    <input class="form-control" id="date" name="date" type="date" placeholder="Select a date..."
-                        data-sb-validations="required" />
+                    <input class="form-control" id="date" name="booking_date" type="date" value="{{ form.booking_date.value }}"
+                        placeholder="Select a date..." data-sb-validations="required" />
                     <label for="date">Booking Date</label>
                     <div class="invalid-feedback" data-sb-feedback="date:required">A date is required.</div>
                 </div>
+
+                <!-- Time field -->
                 <div class="form-floating">
-                    <input class="form-control" id="time" name="time" type="time" placeholder="Select a time..."
-                        data-sb-validations="required" />
+                    <input class="form-control" id="time" name="booking_time" type="time" value="{{ form.booking_time.value }}"
+                        placeholder="Select a time..." data-sb-validations="required" />
                     <label for="time">Booking Time</label>
                     <div class="invalid-feedback" data-sb-feedback="time:required">A time is required.</div>
                 </div>
+
+                <!-- Number of Guests field -->
                 <div class="form-floating">
-                    <input class="form-control" id="guests" name="guests" type="number"
+                    <input class="form-control" id="guests" name="number_of_guests" type="number" value="{{ form.number_of_guests.value }}"
                         placeholder="Number of guests..." data-sb-validations="required" />
                     <label for="guests">Number of Guests</label>
-                    <div class="invalid-feedback" data-sb-feedback="guests:required">The number of guests is required.
-                    </div>
+                    <div class="invalid-feedback" data-sb-feedback="guests:required">The number of guests is required.</div>
                 </div>
                 
-                <!-- text area field here  -->
+                <!-- Remarks (optional) -->
                 <div class="form-floating">
-                    <textarea class="form-control" name="remarks" id="remarks"></textarea>
+                    <textarea class="form-control" name="remarks" id="remarks">{{ form.remarks.value }}</textarea>
                     <label for="remarks">Remarks</label>
                 </div>
-                <!-- Submit success message-->
-                <div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center mb-3">
-                        <div class="fw-bolder">Booking successful!</div>
-                        We look forward to welcoming you. For any changes or queries, please contact us.
-                    </div>
-                </div>
+
                 <br />
-                <!-- Submit error message-->
-                <div class="d-none" id="submitErrorMessage">
-                    <div class="text-center text-danger mb-3">Error submitting the booking!</div>
-                </div>
                 <!-- Submit Button-->
                 <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Book Now</button>
             </form>
