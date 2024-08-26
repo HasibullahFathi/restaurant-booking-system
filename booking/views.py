@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from.models import Booking, Profile, Shift
@@ -39,9 +39,15 @@ def index(request):
     return render(request, 'booking/index.html')
 
 @login_required
-def create_booking(request):
+def create_booking(request, booking_id=None):
+    if booking_id:
+
+        booking = get_object_or_404(Booking, id=booking_id)
+        form = BookingForm(request.POST or None, instance=booking)
+    else:
+
+        form = BookingForm(request.POST or None)
     if request.method == 'POST':
-        form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
             booking.user = request.user
@@ -55,16 +61,14 @@ def create_booking(request):
                 return render(request, 'booking/booking_form.html', {'form': form})
 
             # Check if the table is available for the selected date, shift, and time
-            conflicting_bookings = Booking.objects.filter(
-                table=booking.table,
-                booking_date=booking.booking_date,
-                shift=booking.shift,
-                booking_time=booking.booking_time,
-                status=1
-            )
-            
-            if conflicting_bookings.exists():
-                messages.add_message(request, messages.ERROR, "This table is already booked at the selected time during the shift. Please choose another table.")
+            if Booking.objects.filter(
+                    table=booking.table, 
+                    booking_date=booking.booking_date, 
+                    shift=booking.shift,
+                    booking_time=booking.booking_time, 
+                    status=1).exclude(id=booking.id).exists():
+                messages.error(request, "This table is already booked at the selected time during the shift.")
+
                 return render(request, 'booking/booking_form.html', {'form': form})
 
             # Save the booking and update the table status
@@ -72,18 +76,18 @@ def create_booking(request):
             booking.table.status = 'reserved'
             booking.table.save()
 
-            messages.add_message(request, messages.SUCCESS, "Your booking has been successfully created!")
+            messages.add_message(request, messages.SUCCESS, "Your booking has been successfully created/updated!")
             return redirect('booking_list')
         else:
             messages.add_message(request, messages.ERROR, "There was an error with your booking.")
     else:
-        form = BookingForm()
+        if booking_id:
+            form = BookingForm(instance=booking)
 
-    # Clear any previous messages after rendering
-    storage = messages.get_messages(request)
-    storage.used = True  
 
     return render(request, 'booking/booking_form.html', {'form': form})
+
+    
 
 
 
