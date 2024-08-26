@@ -5,65 +5,71 @@
 <h1>Book a Table</h1>
 <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
-        <p>Book a table for a specific date and time. Please fill in the details below.</p>
-        <!-- Display success or error messages -->
-        {% if messages %}
-        <div class="alert-messages">
-            {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}"
-                role="alert">
-                {{ message }}
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
+        <p>Book a table for a specific date and time. Please note our restaurant operates in two shifts:</p>
+        <ul>
+            <li>Morning Shift: 10:00 AM - 2:00 PM</li>
+            <li>Evening Shift: 5:00 PM - 10:00 PM</li>
+        </ul>
 
         <div class="my-5">
             <form id="bookingForm" method="POST">
                 {% csrf_token %}
+
                 <!-- Table field -->
                 <div class="form-floating">
-                    <select class="form-select" id="table" name="table" data-sb-validations="required">
+                    <select class="form-select" id="table" name="table" required>
                         <option value="" selected>Select a table</option>
                         {% for table in form.fields.table.queryset %}
                         <option value="{{ table.id }}" {% if table.id == form.table.value %}selected{% endif %}>
-                            {{ table.table_number }}</option>
+                            {{ table.table_number }}
+                        </option>
                         {% endfor %}
                     </select>
                     <label for="table">Table</label>
-                    <div class="invalid-feedback" data-sb-feedback="table:required">Please select a table.</div>
+                    <div class="invalid-feedback">Please select a table.</div>
                 </div>
 
                 <!-- Date field -->
                 <div class="form-floating">
                     <input class="form-control" id="date" name="booking_date" type="date"
-                        value="{{ form.booking_date.value }}" placeholder="Select a date..."
-                        data-sb-validations="required" />
+                        value="{{ form.booking_date.value }}" required />
                     <label for="date">Booking Date</label>
-                    <div class="invalid-feedback" data-sb-feedback="date:required">A date is required.</div>
+                    <div class="invalid-feedback">A date is required.</div>
                 </div>
 
-                <!-- Time field -->
+                <!-- Shift selection field -->
                 <div class="form-floating">
-                    <input class="form-control" id="time" name="booking_time" type="time"
-                        value="{{ form.booking_time.value }}" placeholder="Select a time..."
-                        data-sb-validations="required" />
-                    <label for="time">Booking Time</label>
-                    <div class="invalid-feedback" data-sb-feedback="time:required">A time is required.</div>
+                    <select class="form-select" id="shift" name="shift" required>
+                        <option value="" selected>Select a Shift</option>
+                        {% for shift in form.fields.shift.queryset %}
+                        <option value="{{ shift.id }}" data-start-time="{{ shift.start_time }}"
+                            data-end-time="{{ shift.end_time }}">
+                            {{ shift.name }} ({{ shift.start_time }} - {{ shift.end_time }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <label for="shift">Shift</label>
+                    <div class="invalid-feedback">Please select a shift.</div>
                 </div>
 
+
+                <!-- Time selection field -->
+                <div class="form-floating">
+                    <input class="form-control" id="bookingTime" name="booking_time" type="time"
+                        value="{{ form.booking_time.value }}" placeholder="Select a time..." required>
+                    <label for="bookingTime">Booking Time</label>
+                    <div class="invalid-feedback">A valid time within the selected shift is required.</div>
+                </div>
                 <!-- Number of Guests field -->
                 <div class="form-floating">
                     <input class="form-control" id="guests" name="number_of_guests" type="number"
-                        value="{{ form.number_of_guests.value }}" placeholder="Number of guests..."
-                        data-sb-validations="required" />
+                        value="{{ form.number_of_guests.value }}" required />
                     <label for="guests">Number of Guests</label>
-                    <div class="invalid-feedback" data-sb-feedback="guests:required">The number of guests is required.
-                    </div>
+                    <div class="invalid-feedback">The number of guests is required.</div>
                 </div>
 
                 <!-- Phone number -->
-                 <div class="form-floating">
+                <div class="form-floating">
                     <input class="form-control" id="phone" name="phone_number" type="tel"
                         value="{{ form.phone_number.value }}" placeholder="Phone number..." />
                     <label for="phone">Phone Number</label>
@@ -75,13 +81,12 @@
                     <label for="remarks">Remarks</label>
                 </div>
 
-                <!-- alert messages here -->
-
-
                 <br />
-                <!-- Submit Button-->
+
+                <!-- Submit Button -->
                 <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Book Now</button>
-                <!-- back to the booking list button -->
+
+                <!-- Back to the booking list button -->
                 <a href="{% url 'booking_list' %}" class="btn btn-secondary text-uppercase">Back to Booking List</a>
             </form>
         </div>

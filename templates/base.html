@@ -85,6 +85,18 @@
             </div>
         </div>
     </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {% for message in messages %}
+                <div class="alert {% if 'error' in message.tags %}bg-warning{% elif 'success' in message.tags %}bg-success{% else %}bg-info{% endif %} alert-dismissible fade show" id="msg" role="alert">
+                    {{ message | safe }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <!-- Main Content-->
     <div class="container px-4 px-lg-5">
         {% block content %}

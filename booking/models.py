@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -14,11 +15,26 @@ class Profile(models.Model):
 
 # 2. Table Model
 class Table(models.Model):
+    TABLE_STATUS_CHOICES = [
+        ('available', 'Available'),
+        ('reserved', 'Reserved'),
+        ('confirmed', 'Confirmed'),
+        ('cancelled', 'Cancelled'),
+    ]
     table_number = models.IntegerField(unique=True)
     capacity = models.IntegerField()
+    status = models.CharField(max_length=10, choices=TABLE_STATUS_CHOICES, default='available')
 
     def __str__(self):
         return f"Table {self.table_number}"
+
+class Shift(models.Model):
+    name = models.CharField(max_length=100)  # Example: "Morning Shift", "Evening Shift"
+    start_time = models.TimeField()  # Example: 10:00 AM
+    end_time = models.TimeField()    # Example: 02:00 PM
+
+    def __str__(self):
+        return f"{self.name} ({self.start_time} - {self.end_time})"
 
 # 3. Booking Model
 class Booking(models.Model):
@@ -27,6 +43,7 @@ class Booking(models.Model):
     phone_number = models.CharField(max_length=15, null=True) 
     booking_date = models.DateField()
     booking_time = models.TimeField()
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)  # Reference to Shift
     created_on = models.DateTimeField(auto_now_add=True)
     number_of_guests = models.IntegerField()
     STATUS_CHOICES = ((1, 'Confirmed'), (0, 'Cancelled'))
@@ -37,9 +54,13 @@ class Booking(models.Model):
         ordering = ["-created_on"]
         constraints = [
             models.UniqueConstraint(
-                fields=['table', 'booking_date', 'booking_time', 'status'],
-                name='unique_booking_per_table_per_time'
+
+                fields=['table', 'booking_date', 'shift', 'status'],
+
+                name='unique_booking_per_table_per_shift'
+
             )
+
         ]
 
     def __str__(self):
