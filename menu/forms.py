@@ -7,8 +7,8 @@ class MenuCategoryForm(forms.ModelForm):
         model = MenuCategory
         fields = ['name']
 
-# Form for MenuItem
-class MenuItemForm(forms.ModelForm):
-    class Meta:
-        model = MenuItem
-        fields = ['name', 'description', 'price', 'category', 'status']
+# # Form for MenuItem
+# class MenuItemForm(forms.ModelForm):
+#     class Meta:
+#         model = MenuItem
+#         fields = ['name', 'description', 'price', 'category', 'status']
