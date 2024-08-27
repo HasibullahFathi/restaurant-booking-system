@@ -13,15 +13,16 @@ class BookingForm(forms.ModelForm):
         fields = ['table', 'shift', 'booking_date', 'phone_number', 'booking_time', 'number_of_guests', 'remarks']
 
     def __init__(self, *args, **kwargs):
+        # Ensure we correctly handle the instance
+        instance = kwargs.get('instance')
         super().__init__(*args, **kwargs)
 
-        # Dynamically populate the table choices
-        if self.instance and self.instance.pk:
+        if instance and instance.pk:
             # Editing an existing booking
-            current_table = self.instance.table
+            current_table = instance.table
             self.fields['table'].queryset = Table.objects.filter(
-                models.Q(status='1') | models.Q(id=current_table.id)
+                models.Q(status=1) | models.Q(id=current_table.id)
             )
         else:
             # Creating a new booking, only show available tables
-            self.fields['table'].queryset = Table.objects.filter(status='1')
+            self.fields['table'].queryset = Table.objects.filter(status=1)

@@ -14,7 +14,7 @@ from datetime import datetime, time
 # Create your views here.
 
 class BookingList(LoginRequiredMixin, ListView):
-    model = Booking
+    model = Booking.objects.all()
     template_name = 'booking/booking.html'
     context_object_name = 'bookings'
     paginate_by = 8
@@ -47,7 +47,12 @@ def index(request):
 
 
 @login_required
-def create_booking(request):
+def create_booking(request, booking_id=None):
+    if booking_id:
+        booking = get_object_or_404(Booking, id=booking_id)
+        form = BookingForm(request.POST or None, instance=booking)
+    else:
+        form = BookingForm(request.POST or None)
     tables = Table.objects.all()
 
     form = BookingForm(request.POST or None)
@@ -80,7 +85,7 @@ def create_booking(request):
                 return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
 
             booking.save()
-            booking.table.status = '2' 
+            booking.table.status = 2 
             booking.table.save()
 
             messages.success(request, "Your booking has been successfully created!")

@@ -20,7 +20,7 @@
                         <option value="" selected>Select a table</option>
                         {% for table in tables %}
                         <option value="{{ table.id }}" {% if table.id == form.table.value %}selected{% endif %}>
-                            Table {{ table.table_number }} ({{ table.get_status_display }})
+                            Table {{ table.table_number }} ({{ table.get_status_display }}) seats ({{ table.capacity }})
                         </option>
                         {% endfor %}
                     </select>

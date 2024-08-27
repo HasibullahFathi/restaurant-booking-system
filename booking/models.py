@@ -16,13 +16,13 @@ class Profile(models.Model):
 # 2. Table Model
 class Table(models.Model):
     TABLE_STATUS_CHOICES = [
-        ('1', 'Available'),
-        ('2', 'Reserved'),
-        ('0', 'Cancelled'),
+        (1, 'Available'),
+        (2, 'Reserved'),
+        (0, 'Cancelled'),
     ]
     table_number = models.IntegerField(unique=True)
     capacity = models.IntegerField()
-    status = models.CharField(max_length=10, choices=TABLE_STATUS_CHOICES, default=1)
+    status = models.IntegerField(choices=TABLE_STATUS_CHOICES, default=1)
 
     def __str__(self):
         return f"Table {self.table_number}"
