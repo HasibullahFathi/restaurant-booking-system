@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'booking',
+    'menu',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
