@@ -31,9 +31,49 @@ html, body {
     color: rgb(198, 198, 198);
 }
 
+/* /////////////////////////////// */
+
+/* Ensure the card has a fixed height and scrollable content */
+.card {
+    height: 800px; /* Fixed height for the card. Adjust as needed */
+    overflow: hidden; /* Hide any content that overflows the card */
+    display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    border-radius: 8px;
+}
+
+/* Ensure the image fits well within its container */
+.card-img-container {
+    height: 200%; /* Fixed height for the image container */
+    overflow: hidden; /* Hide overflow if image is too large */
+}
+
+.card-img-container img {
+    width: 100%; /* Ensure the image covers the width of the container */
+    height: 100%; /* Ensure the image covers the height of the container */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    border-top-left-radius: 8px; /* Rounded corners on the top-left */
+    border-top-right-radius: 8px; /* Rounded corners on the top-right */
+}
+
+/* Fixed height for the card body with scrollable content */
+.card-body {
+    height: calc(100% - 100px); /* Adjust based on total card height and image container height */
+    overflow-y: auto; /* Adds vertical scrollbar if content exceeds height */
+    padding: 15px; /* Padding inside the card body */
+}
+
+
+
+
+
+
+
+
 /* media queries for screen smaller than tablet */
 @media screen and (max-width: 990px) {
     .nav-style {
         color: #0000008C;
     }
   }
+

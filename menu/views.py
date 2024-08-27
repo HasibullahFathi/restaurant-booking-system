@@ -43,8 +43,9 @@ def create_menu_item(request):
 # View to list all menu categories
 
 def menu_category_list(request):
-    categories = MenuCategory.objects.all()
+    categories = MenuCategory.objects.prefetch_related('menu_items').all()
     return render(request, 'menu/menu.html', {'categories': categories})
+
 
 # View to show details of a specific menu item
 def menu_item_detail(request, item_id):

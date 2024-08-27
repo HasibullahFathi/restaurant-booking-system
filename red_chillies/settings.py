@@ -34,7 +34,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-hasibullahf-restaurantb-t41lrpcwpkx.ws.codeinstitute-ide.net', '.herokuapp.com']
 
@@ -53,11 +53,11 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'cloudinary',
     'booking',
     'menu',
-    'crispy_forms',
-    'crispy_bootstrap5',
 ]
 
 
