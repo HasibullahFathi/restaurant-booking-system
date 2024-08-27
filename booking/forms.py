@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 from .models import Booking, Table, Shift
 
 
@@ -12,6 +13,15 @@ class BookingForm(forms.ModelForm):
         fields = ['table', 'shift', 'booking_date', 'phone_number', 'booking_time', 'number_of_guests', 'remarks']
 
     def __init__(self, *args, **kwargs):
-        super(BookingForm, self).__init__(*args, **kwargs)
-        # Filter available tables only
-        self.fields['table'].queryset = Table.objects.filter(status='available')
+        super().__init__(*args, **kwargs)
+
+        # Dynamically populate the table choices
+        if self.instance and self.instance.pk:
+            # Editing an existing booking
+            current_table = self.instance.table
+            self.fields['table'].queryset = Table.objects.filter(
+                models.Q(status='1') | models.Q(id=current_table.id)
+            )
+        else:
+            # Creating a new booking, only show available tables
+            self.fields['table'].queryset = Table.objects.filter(status='1')

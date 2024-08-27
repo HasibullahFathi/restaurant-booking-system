@@ -19,9 +19,9 @@
                 <div class="form-floating">
                     <select class="form-select" id="table" name="table" required>
                         <option value="" selected>Select a table</option>
-                        {% for table in form.fields.table.queryset %}
-                        <option value="{{ table.id }}" {% if table.id == form.table.value %}selected{% endif %}>
-                            {{ table.table_number }}
+                        {% for table in available_tables %}
+                        <option value="{{ table.id }}" {% if booking.table and booking.table.id == table.id %}selected{% endif %}>
+                            Table {{ table.table_number }} - Capacity: {{ table.capacity }} ({{ table.status }})
                         </option>
                         {% endfor %}
                     </select>

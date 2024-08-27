@@ -27,29 +27,5 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         scrollPos = currentTop;
     });
-
-    const dateInput = document.getElementById('date');
-    const shiftSelect = document.getElementById('shift');
-    const tableSelect = document.getElementById('table');
-
-    function updateAvailableTables() {
-        const selectedShift = shiftSelect.value;
-        const selectedDate = dateInput.value;
-
-        if (selectedShift && selectedDate) {
-            fetch(`/get_available_tables/?date=${selectedDate}&shift=${selectedShift}`)
-                .then(response => response.json())
-                .then(data => {
-                    tableSelect.innerHTML = '<option value="">Select a table</option>';
-                    data.tables.forEach(table => {
-                        tableSelect.innerHTML += `<option value="${table.id}">${table.table_number}</option>`;
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    }
-
-    shiftSelect.addEventListener('change', updateAvailableTables);
-    dateInput.addEventListener('change', updateAvailableTables);
 })
 

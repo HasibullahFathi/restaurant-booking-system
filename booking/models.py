@@ -16,14 +16,13 @@ class Profile(models.Model):
 # 2. Table Model
 class Table(models.Model):
     TABLE_STATUS_CHOICES = [
-        ('available', 'Available'),
-        ('reserved', 'Reserved'),
-        ('confirmed', 'Confirmed'),
-        ('cancelled', 'Cancelled'),
+        ('1', 'Available'),
+        ('2', 'Reserved'),
+        ('0', 'Cancelled'),
     ]
     table_number = models.IntegerField(unique=True)
     capacity = models.IntegerField()
-    status = models.CharField(max_length=10, choices=TABLE_STATUS_CHOICES, default='available')
+    status = models.CharField(max_length=10, choices=TABLE_STATUS_CHOICES, default=1)
 
     def __str__(self):
         return f"Table {self.table_number}"
@@ -46,8 +45,8 @@ class Booking(models.Model):
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE)  # Reference to Shift
     created_on = models.DateTimeField(auto_now_add=True)
     number_of_guests = models.IntegerField()
-    STATUS_CHOICES = ((1, 'Confirmed'), (0, 'Cancelled'))
-    status = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    STATUS_CHOICES = ((2, 'Confirmed'), (0, 'Cancelled'), (1, 'Available'))
+    status = models.IntegerField(choices=STATUS_CHOICES, default=2)
     remarks = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -65,4 +64,4 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"Booking {self.id} by {self.user.username} on {self.booking_date} at {self.booking_time}"
-
+    

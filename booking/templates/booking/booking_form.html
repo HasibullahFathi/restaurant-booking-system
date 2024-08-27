@@ -15,13 +15,12 @@
             <form id="bookingForm" method="POST">
                 {% csrf_token %}
 
-                <!-- Table field -->
                 <div class="form-floating">
                     <select class="form-select" id="table" name="table" required>
                         <option value="" selected>Select a table</option>
-                        {% for table in form.fields.table.queryset %}
+                        {% for table in tables %}
                         <option value="{{ table.id }}" {% if table.id == form.table.value %}selected{% endif %}>
-                            {{ table.table_number }}
+                            Table {{ table.table_number }} ({{ table.get_status_display }})
                         </option>
                         {% endfor %}
                     </select>
