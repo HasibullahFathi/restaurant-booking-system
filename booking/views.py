@@ -9,6 +9,7 @@ from.forms import BookingForm
 from django.http import Http404
 from django.utils import timezone
 from datetime import datetime, time
+from django.db.models import Q
 
 
 # Create your views here.
@@ -44,59 +45,67 @@ def index(request):
     return render(request, 'booking/index.html')
 
 
-
-
 @login_required
-def create_booking(request, booking_id=None):
-    if booking_id:
-        booking = get_object_or_404(Booking, id=booking_id)
-        form = BookingForm(request.POST or None, instance=booking)
-    else:
-        form = BookingForm(request.POST or None)
-    tables = Table.objects.all()
-
-    form = BookingForm(request.POST or None)
-
+def create_booking(request):
     if request.method == 'POST':
+        form = BookingForm(request.POST)
+        
         if form.is_valid():
             booking = form.save(commit=False)
             booking.user = request.user
-
             selected_shift = booking.shift
             booking_time = booking.booking_time
 
+            # Check if the booking date is in the future
             if booking.booking_date < timezone.now().date():
                 messages.error(request, "Booking date must be in the future.")
-                return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+                return render(request, 'booking/booking_form.html', {'form': form})
 
+            # Check if the booking time falls within the selected shift
             if not (selected_shift.start_time <= booking_time <= selected_shift.end_time):
                 messages.error(request, f"Booking time must be between {selected_shift.start_time} and {selected_shift.end_time} for the {selected_shift.name} shift.")
-                return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+                return render(request, 'booking/booking_form.html', {'form': form})
 
-            duplicate_booking = Booking.objects.filter(
+            # Check if the table is available
+            if booking.table.status != 1:  # Status '1' means Available
+                messages.error(request, "The selected table is not available.")
+                return render(request, 'booking/booking_form.html', {'form': form})
+
+            # Check for existing bookings for the same table on the same date and shift
+            if Booking.objects.filter(
                 table=booking.table,
                 booking_date=booking.booking_date,
-                shift=booking.shift,
-                status=2 
-            ).exclude(id=booking.id).exists()
-
-            if duplicate_booking:
+                shift=booking.shift
+            ).exists():
                 messages.error(request, "This table is already booked at the selected time during the shift.")
-                return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+                return render(request, 'booking/booking_form.html', {'form': form})
 
+            # Save the booking
             booking.save()
-            booking.table.status = 2 
-            booking.table.save()
 
             messages.success(request, "Your booking has been successfully created!")
             return redirect('booking_list')
 
         else:
-            print("Form Errors:", form.errors)
             messages.error(request, "There was an error with your booking.")
+            return render(request, 'booking/booking_form.html', {'form': form})
 
-    return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+    else:
+        form = BookingForm()
 
+    return render(request, 'booking/booking_form.html', {'form': form})
+
+
+def check_and_expire_bookings():
+    now = timezone.now()
+    expired_bookings = Booking.objects.filter(
+        Q(booking_date__lt=now.date()) |
+        (Q(booking_date=now.date()) & Q(booking_time__lte=now.time()) & Q(shift__end_time__lte=now.time()))
+    )
+    
+    for booking in expired_bookings:
+        # Delete the expired booking
+        booking.delete()
 
 
 @login_required
@@ -106,38 +115,33 @@ def edit_booking(request, booking_id):
 
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
-        
+
         if form.is_valid():
             updated_booking = form.save(commit=False)
             updated_booking.user = request.user
-
             selected_shift = updated_booking.shift
             booking_time = updated_booking.booking_time
 
+            # Check if the booking date is in the future
             if updated_booking.booking_date < timezone.now().date():
                 messages.error(request, "Booking date must be in the future.")
                 return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
 
+            # Check if the booking time falls within the selected shift
             if not (selected_shift.start_time <= booking_time <= selected_shift.end_time):
                 messages.error(request, f"Booking time must be between {selected_shift.start_time} and {selected_shift.end_time} for the {selected_shift.name} shift.")
                 return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
 
-            if booking.table != updated_booking.table:
-                booking.table.status = 1
-                booking.table.save()
+            # Check for existing bookings for the same table on the same date and shift
+            if Booking.objects.filter(
+                table=updated_booking.table,
+                booking_date=updated_booking.booking_date,
+                shift=updated_booking.shift
+            ).exclude(id=booking.id).exists():
+                messages.error(request, "This table is already booked at the selected time during the shift.")
+                return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
 
-                if Booking.objects.filter(
-                    table=updated_booking.table,
-                    booking_date=updated_booking.booking_date,
-                    shift=updated_booking.shift,
-                    status=2
-                ).exists():
-                    messages.error(request, "This table is already booked at the selected time during the shift.")
-                    return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
-
-                updated_booking.table.status = '2' 
-                updated_booking.table.save()
-
+            # Save the updated booking
             updated_booking.save()
 
             messages.success(request, "Your booking has been successfully updated!")
@@ -145,13 +149,12 @@ def edit_booking(request, booking_id):
 
         else:
             messages.error(request, "There was an error with your booking.")
-    
+            return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+
     else:
         form = BookingForm(instance=booking)
 
     return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
-
-
 
 
 @login_required
