@@ -7,11 +7,12 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="text-center flex-grow-1 mb-0">Menu list</h2>
     {% if user.is_authenticated and user.is_staff %}
-    <a href="{% url 'create_menu' %}" class="btn btn-primary">Create menu/Category</a>
+    <a href="{% url 'create_menu_category' %}" class="btn btn-primary">Create Category</a>
+    <a href="{% url 'create_menu_item' %}" class="btn btn-primary">Create menu</a>
     {% endif %}
 </div>
 
-
+<!-- old one  -->
 <div class="accordion" id="menuAccordion">
     {% for category in categories %}
     <div class="accordion-item">
@@ -38,13 +39,23 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ item.name }}</h5>
+                                {% if user.is_authenticated and user.is_staff %}
+                                    <a href="#" class="btn btn-warning btn-sm" title="Edit Item">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-sm" title="Delete Item">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>   
+                                {% endif %}
                                 {% if item.status == 1 %}
                                     <p class="fw-lighter fst-italic">(Abailable)</p>
                                 {% else %}
-                                    <span class="fw-lighter fst-italic">(Not available)</span>
+                                    <span class="fw-lighter fst-italic">(Unavailable)</span>
                                 {% endif %}
                                 <p class="card-text">{{ item.description }}</p>
+                                
                                 <p class="card-text"><strong>{{ item.price }}€</strong></p>
+                                    
                             </div>
                         </div>
                     </div>

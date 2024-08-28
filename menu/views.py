@@ -7,39 +7,40 @@ from django.contrib import messages
 def menu_category_list(request):
     categories = MenuCategory.objects.prefetch_related('menu_items').all()
     return render(request, 'menu/menu.html', {'categories': categories})
-
+    
 
 @login_required
-def create_menu_and_category(request):
+def create_menu_category(request):
     if not request.user.is_staff:
-        messages.error(request, "You do not have permission to access this page.")
-        return redirect('menu_category_list')
+        return redirect('menu_category_list')  # Redirect to a page that handles unauthorized access
 
     if request.method == 'POST':
         category_form = MenuCategoryForm(request.POST)
-        item_form = MenuItemForm(request.POST, request.FILES)
-
-        if category_form.is_valid() and 'category_submit' in request.POST:
+        if category_form.is_valid():
             category_form.save()
-            messages.success(request, "Category created successfully!")
-            return redirect('create_menu')
-
-        if item_form.is_valid() and 'item_submit' in request.POST:
-            item_form.save()
-            messages.success(request, "Menu item created successfully!")
-            return redirect('create_menu')
-
-        if not category_form.is_valid():
-            messages.error(request, "There was an error creating the category. Please check the form.")
-        if not item_form.is_valid():
-            messages.error(request, "There was an error creating the menu item. Please check the form.")
-    
+            return redirect('create_menu_category')  # Redirect to the same page or another page after saving
     else:
         category_form = MenuCategoryForm()
-        item_form = MenuItemForm()
 
     context = {
         'category_form': category_form,
+    }
+    return render(request, 'menu/create_menu_category.html', context)
+
+@login_required
+def create_menu_item(request):
+    if not request.user.is_staff:
+        return redirect('menu_category_list')  # Redirect to a page that handles unauthorized access
+
+    if request.method == 'POST':
+        item_form = MenuItemForm(request.POST, request.FILES)
+        if item_form.is_valid():
+            item_form.save()
+            return redirect('create_menu_item')  # Redirect to the same page or another page after saving
+    else:
+        item_form = MenuItemForm()
+
+    context = {
         'item_form': item_form,
     }
     return render(request, 'menu/create_menu_item.html', context)
