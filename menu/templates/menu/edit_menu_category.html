@@ -1,0 +1,27 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h1>Edit Category</h1>
+
+{% if user.is_authenticated and user.is_staff %}
+
+<div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7">
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ category_form|crispy }}
+            <button type="submit" name="category_submit" class="btn btn-primary">Create Category</button>
+            <a href="{% url 'menu_category_list' %}" class="btn btn-secondary">Back to Booking List</a>
+        </form>
+    </div>
+</div>
+{% else %}
+<p>You do not have permission to create menu items.</p>
+{% endif %}
+
+
+
+{% endblock %}

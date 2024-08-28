@@ -25,15 +25,41 @@
             </button>
             {% if user.is_authenticated and user.is_staff %}
             <div class="ms-3 d-flex align-items-center">
-                <a href="#" class="btn btn-warning btn-sm me-2" title="Edit Item">
+                <a href="{% url 'edit_menu_category' category.id %}" class="btn btn-warning btn-sm me-2"
+                    title="Edit Item">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a href="#" class="btn btn-danger btn-sm" title="Delete Item">
+                <!-- Trigger the modal with this button -->
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#confirmDeleteModal{{ category.id }}" title="Delete Item">
                     <i class="fas fa-trash-alt"></i>
-                </a>
+                </button>
             </div>
             {% endif %}
         </h2>
+
+        <!-- Confirmation Modal -->
+        <div class="modal fade" id="confirmDeleteModal{{ category.id }}" tabindex="-1"
+            aria-labelledby="confirmDeleteModalLabel{{ category.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel{{ category.id }}">Confirm Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the category "{{ category.name }}"?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form method="post" action="{% url 'delete_menu_category' category.id %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="collapse{{ category.id }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ category.id }}" data-bs-parent="#menuAccordion">
@@ -79,10 +105,5 @@
     </div>
     {% endfor %}
 </div>
-
-
-
-
-
 
 {% endblock %}
