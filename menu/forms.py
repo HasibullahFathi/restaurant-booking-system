@@ -1,14 +1,19 @@
 from django import forms
 from .models import MenuCategory, MenuItem
 
-# Form for MenuCategory
 class MenuCategoryForm(forms.ModelForm):
     class Meta:
         model = MenuCategory
         fields = ['name']
 
-# Form for MenuItem
 class MenuItemForm(forms.ModelForm):
     class Meta:
         model = MenuItem
-        fields = ['name', 'description', 'price', 'category', 'status']
+        fields = ['name', 'description', 'price', 'status', 'featured_image', 'category']
+
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price <= 0:
+            raise forms.ValidationError("Price must be greater than zero.")
+        return price
