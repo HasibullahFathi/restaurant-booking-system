@@ -16,19 +16,32 @@
 <div class="accordion" id="menuAccordion">
     {% for category in categories %}
     <div class="accordion-item">
-        <h2 class="accordion-header" id="heading{{ category.id }}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+
+        <h2 class="accordion-header d-flex align-items-center" id="heading{{ category.id }}">
+            <button class="accordion-button collapsed flex-grow-1" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapse{{ category.id }}" aria-expanded="false"
                 aria-controls="collapse{{ category.id }}">
                 {{ category.name }}
             </button>
+            {% if user.is_authenticated and user.is_staff %}
+            <div class="ms-3 d-flex align-items-center">
+                <a href="#" class="btn btn-warning btn-sm me-2" title="Edit Item">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="#" class="btn btn-danger btn-sm" title="Delete Item">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </div>
+            {% endif %}
         </h2>
+
         <div id="collapse{{ category.id }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ category.id }}" data-bs-parent="#menuAccordion">
             <div class="accordion-body">
                 <div class="row">
                     {% for item in category.menu_items.all %}
-                    <div class="col-md-6 mb-3"> <!-- Each item takes half of the row on medium screens and up -->
+                    <div class="col-md-6 mb-3">
+                        <!-- Each item takes half of the row on medium screens and up -->
                         <div class="card" style="max-width: 540px;">
                             <div class="card-img-container">
                                 {% if "placeholder" in item.featured_image.url %}
@@ -40,22 +53,22 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ item.name }}</h5>
                                 {% if user.is_authenticated and user.is_staff %}
-                                    <a href="#" class="btn btn-warning btn-sm" title="Edit Item">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-sm" title="Delete Item">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>   
+                                <a href="#" class="btn btn-warning btn-sm" title="Edit Item">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm" title="Delete Item">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
                                 {% endif %}
                                 {% if item.status == 1 %}
-                                    <p class="fw-lighter fst-italic">(Abailable)</p>
+                                <p class="fw-lighter fst-italic">(Abailable)</p>
                                 {% else %}
-                                    <span class="fw-lighter fst-italic">(Unavailable)</span>
+                                <span class="fw-lighter fst-italic">(Unavailable)</span>
                                 {% endif %}
                                 <p class="card-text">{{ item.description }}</p>
-                                
+
                                 <p class="card-text"><strong>{{ item.price }}€</strong></p>
-                                    
+
                             </div>
                         </div>
                     </div>
