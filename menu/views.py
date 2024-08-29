@@ -153,5 +153,26 @@ def edit_menu_item(request, item_id):
 
 
 
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import MenuItem
+
+@login_required
+def delete_menu_item(request, item_id):
+    if not request.user.is_staff:
+        messages.error(request, "You are not authorized to delete a menu item.")
+        return redirect('menu_category_list')  # Redirect to the menu category list if not authorized
+
+    # Fetch the menu item or return a 404 if not found
+    menu_item = get_object_or_404(MenuItem, id=item_id)
+
+    # Perform the deletion
+    menu_item.delete()
+    messages.success(request, f"Menu item '{menu_item.name}' has been successfully deleted.")
+
+    # Redirect back to the menu item list or another appropriate list
+    return redirect('menu_category_list')  # Adjust this redirect to the correct view name
+
 
 

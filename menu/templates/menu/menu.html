@@ -7,7 +7,7 @@
     <h2 class="flex-grow-1 mb-0">Menu</h2>
     {% if user.is_authenticated and user.is_staff %}
     <a href="{% url 'create_menu_category' %}" class="btn btn-primary">Create Category</a>
-    <a href="{% url 'create_menu_item' %}" class="btn btn-primary">Create menu</a>
+    <a href="{% url 'create_menu_item' %}" class="btn btn-primary">Create Menu Item</a>
     {% endif %}
 </div>
 
@@ -25,12 +25,12 @@
             {% if user.is_authenticated and user.is_staff %}
             <div class="ms-3 d-flex align-items-center">
                 <a href="{% url 'edit_menu_category' category.id %}" class="btn btn-warning btn-sm me-2"
-                    title="Edit Item">
+                    title="Edit Category">
                     <i class="fas fa-edit"></i>
                 </a>
                 <!-- Trigger the modal with this button -->
                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#confirmDeleteModal{{ category.id }}" title="Delete Item">
+                data-bs-target="#confirmDeleteCategoryModal{{ category.id }}" title="Delete Category">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
@@ -38,12 +38,12 @@
         </h2>
 
         <!-- Confirmation Modal -->
-        <div class="modal fade" id="confirmDeleteModal{{ category.id }}" tabindex="-1"
-            aria-labelledby="confirmDeleteModalLabel{{ category.id }}" aria-hidden="true">
+        <div class="modal fade" id="confirmDeleteCategoryModal{{ category.id }}" tabindex="-1"
+        aria-labelledby="confirmDeleteCategoryModalLabel{{ category.id }}" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="confirmDeleteModalLabel{{ category.id }}">Confirm Deletion</h5>
+                        <h5 class="modal-title" id="confirmDeleteCategoryModalLabel{{ category.id }}">Confirm Deletion</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -81,18 +81,44 @@
                                 <a href="{% url 'edit_menu_item' item.id %}" class="btn btn-warning btn-sm" title="Edit Item">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-sm" title="Delete Item">
+                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#confirmDeleteItemModal{{ item.id }}" title="Delete Item">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
+
                                 {% endif %}
                                 {% if item.status == 1 %}
-                                <p class="fw-lighter fst-italic">(Abailable)</p>
+                                <p class="fw-lighter fst-italic">(Available)</p>
                                 {% else %}
                                 <span class="fw-lighter fst-italic">(Unavailable)</span>
                                 {% endif %}
                                 <p class="card-text">{{ item.description }}</p>
 
                                 <p class="card-text"><strong>{{ item.price }}€</strong></p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item Confirmation Modal -->
+                    <div class="modal fade" id="confirmDeleteItemModal{{ item.id }}" tabindex="-1"
+                        aria-labelledby="confirmDeleteItemModalLabel{{ item.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteItemModalLabel{{ item.id }}">Confirm Deletion</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete the menu item "{{ item.name }}"?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <form method="post" action="{% url 'delete_menu_item' item.id %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
 
                             </div>
                         </div>

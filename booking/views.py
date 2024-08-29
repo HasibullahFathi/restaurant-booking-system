@@ -37,6 +37,7 @@ class BookingList(LoginRequiredMixin, ListView):
         context['page'] = self.request.GET.get('page', 1)  # Pass the current page number to the template
         return context
 
+
 class BookingDetail(DetailView):
     model = Booking
     template_name = 'booking/booking_detail.html'
