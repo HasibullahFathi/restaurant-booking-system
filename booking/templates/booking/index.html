@@ -3,12 +3,90 @@
 {% load static %}
 {% block content %}
 
-<h1>Home page</h1>
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-center flex-grow-1 mb-0">Home page</h2>
+    <h2 class="flex-grow-1 mb-0">Home page</h2>
     {% if user.is_authenticated %}
         <a href="{% url 'booking_list' %}" class="btn btn-primary">My Booking</a>
     {% endif %}
+</div>
+
+<!-- Section 1: Opening Times and Contact Information -->
+<div class="container my-5">
+    <div class="row">
+        <!-- Opening Hours Section -->
+        <div class="col-md-6">
+            <h2>Opening Hours</h2>
+            <p><strong>Restaurant Opening Times (Lunch):</strong> 11:00 - 14:00</p>
+            <p><strong>Restaurant Closing Times (Dinner):</strong> 17:30 - 22:00</p>
+            <p><strong>Kitchen Hours:</strong> Tue - Sat 17:00 p.m. - 21:30 p.m.*</p>
+            <p><strong>* Mondays Closed</strong></p>
+        </div>
+
+        <!-- Contact Us Section -->
+        <div class="col-md-6 bg-dark text-white p-4">
+            <h2>Contact Us</h2>
+            <p><strong>Address:</strong> <span class="p-4">Landau in der Pfalz<br>Albert Einstein Straße 111</span></p>
+            <!-- <p>Albert Einstein Straße 111<br>Landau in der Pfalz</p> -->
+            <p><strong>Phone:</strong> <span class="p-4">0555 2227755</span></p>
+            <p><strong>Email:</strong> <span class="p-4">red@chillies.de, info@redchillies.de</span></p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Section 2: Photo Gallery or Event Information -->
+<div class="custom-gallery">
+    <div class="row row-gallery">
+        <div class="gallery-item">
+            <div class="image-container">
+                <img src="{% static 'images/gallery1.jpg' %}" alt="Gallery Image 1">
+            </div>
+            <h3>Enjoy</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis vel voluptatem saepe accusamus tenetur iure aspernatur similique, consequatur dolores neque suscipit eaque eius perspiciatis porro incidunt ratione commodi minus. Ex!</p>
+        </div>
+        <div class="gallery-item">
+            <div class="image-container">
+                <img src="{% static 'images/gallery2.jpg' %}" alt="Gallery Image 2">
+            </div>
+            <h3>Celebrate</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim quasi odio expedita dolorem voluptate ipsa dignissimos illo velit quia, quod perferendis eos aspernatur animi eveniet quam aut quos maxime sit?</p>
+        </div>
+    </div>
+    <div class="row row-gallery">
+        <div class="gallery-item">
+            <div class="image-container">
+                <img src="{% static 'images/gallery3.jpg' %}" alt="Gallery Image 3">
+            </div>
+            <h3>Relax</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur quia natus quae quasi? Corporis perferendis placeat quisquam provident cupiditate labore ad, incidunt mollitia quis. Dolor sunt excepturi unde magnam.</p>
+        </div>
+        <div class="gallery-item">
+            <div class="image-container">
+                <img src="{% static 'images/gallery4.jpg' %}" alt="Gallery Image 4">
+            </div>
+            <h3>Try Specials</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut exercitationem sed maiores ipsa, saepe maxime voluptatem, ad dignissimos voluptas delectus officia aspernatur eius, illum soluta eum enim corrupti repellat unde?</p>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Section 3: Additional Content (Footer-Like Section) -->
+<div class="container-fluid bg-dark text-white py-4">
+    <div class="row">
+        <h3>About:</h3>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate ea rerum quia distinctio, quas nulla nam. 
+            Voluptatibus nulla est quod impedit aliquid, minima maiores voluptatum suscipit quisquam atque quo molestias. 
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, sapiente? Facere delectus repellat earum minus illo ad suscipit, 
+            vero architecto eum, rem inventore vitae dignissimos commodi. Necessitatibus minima consequuntur obcaecati!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate ea rerum quia distinctio, quas nulla nam. 
+            Voluptatibus nulla est quod impedit aliquid, minima maiores voluptatum suscipit quisquam atque quo molestias. 
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, sapiente? Facere delectus repellat earum minus illo ad suscipit, 
+            vero architecto eum, rem inventore vitae dignissimos commodi. Necessitatibus minima consequuntur obcaecati!
+        </p>
+    </div>
 </div>
 
 {% endblock %}
