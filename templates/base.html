@@ -54,12 +54,14 @@
                     <li class="nav-item">
                         <form method="post" action="{% url 'account_logout' %}">
                             {% csrf_token %}
-                            <button class="btn btn-link nav-link px-lg-3 py-3 py-lg-4 nav-style"
+                            <a class="nav-link px-lg-3 py-3 py-lg-4 nav-style"
                                 type="submit">
                                 {% trans "Logout" %}
-                            </button>
+                            </a>
                         </form>
                     </li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 nav-username" href="#">{{user}}</a></li>
+                    
                     {% else %}
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                             href="{% url 'account_signup' %}">Register</a></li>

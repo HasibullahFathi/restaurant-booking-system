@@ -125,12 +125,20 @@ def edit_booking(request, booking_id):
             # Check if the booking date is in the future
             if updated_booking.booking_date < timezone.now().date():
                 messages.error(request, "Booking date must be in the future.")
-                return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+                return render(request, 'booking/booking_form.html', {
+                'form': form,
+                'tables': tables,
+                'booking_id': booking_id
+            })
 
             # Check if the booking time falls within the selected shift
             if not (selected_shift.start_time <= booking_time <= selected_shift.end_time):
                 messages.error(request, f"Booking time must be between {selected_shift.start_time} and {selected_shift.end_time} for the {selected_shift.name} shift.")
-                return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+                return render(request, 'booking/booking_form.html', {
+                'form': form,
+                'tables': tables,
+                'booking_id': booking_id
+            })
 
             # Check for existing bookings for the same table on the same date and shift
             if Booking.objects.filter(
@@ -139,7 +147,11 @@ def edit_booking(request, booking_id):
                 shift=updated_booking.shift
             ).exclude(id=booking.id).exists():
                 messages.error(request, "This table is already booked at the selected time during the shift.")
-                return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+                return render(request, 'booking/booking_form.html', {
+                'form': form,
+                'tables': tables,
+                'booking_id': booking_id
+            })
 
             # Save the updated booking
             updated_booking.save()
@@ -149,12 +161,20 @@ def edit_booking(request, booking_id):
 
         else:
             messages.error(request, "There was an error with your booking.")
-            return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+            return render(request, 'booking/booking_form.html', {
+                'form': form,
+                'tables': tables,
+                'booking_id': booking_id
+            })
 
     else:
         form = BookingForm(instance=booking)
 
-    return render(request, 'booking/booking_form.html', {'form': form, 'tables': tables})
+    return render(request, 'booking/booking_form.html', {
+        'form': form,
+        'tables': tables,
+        'booking_id': booking_id
+    })
 
 
 @login_required

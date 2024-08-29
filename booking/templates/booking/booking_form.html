@@ -4,7 +4,7 @@
 
 {% load crispy_forms_tags %}
 
-<h1>Book a Table</h1>
+<h1>{% if booking_id %}Edit{% else %}Book{% endif %} a Table</h1>
 <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
         <p>Book a table for a specific date and time. Please note our restaurant operates in two shifts:</p>
@@ -20,7 +20,9 @@
 
                 <br />
                 <!-- Submit Button -->
-                <button type="submit" name="item_submit" class="btn btn-primary">Create Booking</button>
+                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">
+                    {% if booking_id %}Update{% else %}Book Now{% endif %}
+                </button>
                 <!-- Back to the booking list button -->
                 <a href="{% url 'booking_list' %}" class="btn btn-secondary text-uppercase">Back to Booking List</a>
             </form>
