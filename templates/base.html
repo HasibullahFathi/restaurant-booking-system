@@ -1,8 +1,6 @@
 {% load static %}
 {% load i18n %}
 {% url 'home' as home_url %}
-<!-- {% url 'booking' as booking_url %} -->
-{% url 'about' as about_url %}
 {% url 'menu' as menu_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
@@ -59,6 +57,7 @@
                             Logout
                         </a>
                     </li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 nav-username" href="">{{user}}</a></li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link px-lg-3 py-3 py-lg-4 {% if request.path == signup_url %}active{% endif %}"
@@ -76,7 +75,20 @@
     </nav>
 
     <!-- Page Header-->
-    <header class="masthead" style="background-image: url('{% static 'images/home-bg.jpg' %}')">
+    <!-- <header class="masthead" style="background-image: url('{% static 'images/home-bg.jpg' %}')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Indian Local Foods!</h1>
+                        <span class="subheading">Experience the vibrant flavors of India with authentic, locally crafted
+                            dishes that bring tradition to your table.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header> -->
+    <header class="masthead" style="background-image: url('{% static "images/home-bg.jpg" %}');">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
