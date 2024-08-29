@@ -3,8 +3,8 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<h1>Create Category</h1>
-
+<h1>{% if category_id %}Edit{% else %}Create{% endif %} Category</h1>
+<p>this is category id {{category_id}}</p>
 {% if user.is_authenticated and user.is_staff %}
 
 <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -13,8 +13,12 @@
         <form method="POST">
             {% csrf_token %}
             {{ category_form|crispy }}
-            <button type="submit" name="category_submit" class="btn btn-primary">Create Category</button>
-            <a href="{% url 'menu_category_list' %}" class="btn btn-secondary">Back to Booking List</a>
+
+            <br>
+            <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">
+                {% if category_id %}Update{% else %}Create Now{% endif %}
+            </button>
+            <a href="{% url 'menu_category_list' %}" class="btn btn-secondary text-uppercase">Back to Booking List</a>
         </form>
     </div>
 </div>
