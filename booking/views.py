@@ -2,17 +2,14 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from.models import Booking, Profile, Shift, Table
 from django.contrib import messages
 from.forms import BookingForm
-from django.http import Http404
 from django.utils import timezone
 from datetime import datetime, time
 from django.db.models import Q
 
-
-# Create your views here.
 
 
 class BookingList(LoginRequiredMixin, ListView):
@@ -96,18 +93,6 @@ def create_booking(request):
         form = BookingForm()
 
     return render(request, 'booking/booking_form.html', {'form': form})
-
-
-def check_and_expire_bookings():
-    now = timezone.now()
-    expired_bookings = Booking.objects.filter(
-        Q(booking_date__lt=now.date()) |
-        (Q(booking_date=now.date()) & Q(booking_time__lte=now.time()) & Q(shift__end_time__lte=now.time()))
-    )
-    
-    for booking in expired_bookings:
-        # Delete the expired booking
-        booking.delete()
 
 
 @login_required

@@ -7,6 +7,7 @@ class MenuCategoryForm(forms.ModelForm):
         fields = ['name']
 
 class MenuItemForm(forms.ModelForm):
+    price = forms.IntegerField(widget=forms.NumberInput(attrs={'min': '0'}), label="Price")
     class Meta:
         model = MenuItem
         fields = ['name', 'description', 'price', 'status', 'featured_image', 'category']

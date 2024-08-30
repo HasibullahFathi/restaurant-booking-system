@@ -6,12 +6,11 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="flex-grow-1 mb-0">Menu</h2>
     {% if user.is_authenticated and user.is_staff %}
-    <a href="{% url 'create_menu_category' %}" class="btn btn-primary">Create Category</a>
-    <a href="{% url 'create_menu_item' %}" class="btn btn-primary">Create Menu Item</a>
+    <a href="{% url 'create_menu_category' %}" class="btn btn-primary btn-sm btn-lg me-2">Create Category</a>
+    <a href="{% url 'create_menu_item' %}" class="btn btn-primary btn-sm btn-lg">Create Item</a>
     {% endif %}
 </div>
 
-<!-- old one  -->
 <div class="accordion" id="menuAccordion">
     {% for category in categories %}
     <div class="accordion-item">
@@ -37,10 +36,10 @@
             {% endif %}
         </h2>
 
-        <!-- Confirmation Modal -->
+        <!-- Confirmation delete Modal -->
         <div class="modal fade" id="confirmDeleteCategoryModal{{ category.id }}" tabindex="-1"
         aria-labelledby="confirmDeleteCategoryModalLabel{{ category.id }}" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-sm modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="confirmDeleteCategoryModalLabel{{ category.id }}">Confirm Deletion</h5>
@@ -100,10 +99,10 @@
                         </div>
                     </div>
 
-                    <!-- Item Confirmation Modal -->
+                    <!-- Item Delete Confirmation Modal -->
                     <div class="modal fade" id="confirmDeleteItemModal{{ item.id }}" tabindex="-1"
                         aria-labelledby="confirmDeleteItemModalLabel{{ item.id }}" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-sm modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="confirmDeleteItemModalLabel{{ item.id }}">Confirm Deletion</h5>
