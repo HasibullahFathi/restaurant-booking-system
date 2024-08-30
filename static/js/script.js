@@ -28,9 +28,3 @@ window.addEventListener('DOMContentLoaded', () => {
         scrollPos = currentTop;
     });
 })
-
-// document.querySelectorAll('button[data-bs-toggle="modal"]').forEach(button => {
-//     button.addEventListener('touchstart', function() {
-//         this.click();
-//     });
-// });

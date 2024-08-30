@@ -96,11 +96,11 @@ html, body {
 }
 
 
-
 /* media queries for screen smaller than tablet */
 @media screen and (max-width: 990px) {
     .nav-style {
         color: #0000008C;
     }
-  }
+}
+
 

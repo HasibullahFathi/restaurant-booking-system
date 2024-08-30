@@ -25,13 +25,13 @@ class BookingList(LoginRequiredMixin, ListView):
             raise Http404("Profile does not exist for the user.")
 
         if profile.role == 1:
-            return Booking.objects.all().order_by("-created_on")
+            return Booking.objects.all().order_by("-booking_date", "-created_on")
         else:
-            return Booking.objects.filter(user=self.request.user).order_by("-created_on")
+            return Booking.objects.filter(user=self.request.user).order_by("-booking_date", "-created_on")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page'] = self.request.GET.get('page', 1)  # Pass the current page number to the template
+        context['page'] = self.request.GET.get('page', 1)
         return context
 
 
