@@ -29,8 +29,8 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 })
 
-document.querySelectorAll('button[data-bs-toggle="modal"]').forEach(button => {
-    button.addEventListener('touchstart', function() {
-        this.click();
-    });
-});
+// document.querySelectorAll('button[data-bs-toggle="modal"]').forEach(button => {
+//     button.addEventListener('touchstart', function() {
+//         this.click();
+//     });
+// });
