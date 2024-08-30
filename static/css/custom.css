@@ -68,21 +68,33 @@ html, body {
     text-transform: none !important;
 }
 
+/* home page image styles */
 .image-container {
     width: 100%;
-    height: 550px; /* Set the desired height */
+    height: 550px;
     overflow: hidden;
 }
 
 .image-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This ensures the image covers the container without stretching */
+    object-fit: cover; 
 }
 
 .bg-dark {
     background-color: #333 !important;
 }
+
+
+/* modal to be clickable in mobile device*/
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+
+.modal {
+    z-index: 1050 !important;
+}
+
 
 
 /* media queries for screen smaller than tablet */
