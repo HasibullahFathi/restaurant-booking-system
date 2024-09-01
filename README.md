@@ -27,11 +27,11 @@ It is not an actual site for a restaurant, this is a project to show my coding k
   - [Booking](#booking)
     - [See the booking list (if logged in)](#see-the-booking-list-if-logged-in)
     - [Paginate booking list](#paginate-booking-list)
+    - [View booking](#view-booking)
     - [Create booking (if logged in)](#create-booking-if-logged-in)
     - [Edit all bookings (if logged in)](#edit-all-bookings-if-logged-in)
     - [Delete/Cancel bookings (if logged in)](#deletecancel-bookings-if-logged-in)
   - [Register](#register)
-    - [Validation](#validation)
     - [Create a profile automatically](#create-a-profile-automatically)
   - [Login](#login)
   - [Logout](#logout)
@@ -63,6 +63,7 @@ It is not an actual site for a restaurant, this is a project to show my coding k
 ## Features
 
 ### Navigation bar
+- the
 
 ### Home page
 
@@ -90,6 +91,8 @@ It is not an actual site for a restaurant, this is a project to show my coding k
 
 ### Paginate booking list
 
+### View booking
+
 ### Create booking (if logged in)
 
 ### Edit all bookings (if logged in)
@@ -97,8 +100,6 @@ It is not an actual site for a restaurant, this is a project to show my coding k
 ### Delete/Cancel bookings (if logged in)
 
 ## Register
-
-### Validation
 
 ### Create a profile automatically
 
