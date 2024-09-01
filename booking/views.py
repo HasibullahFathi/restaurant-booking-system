@@ -79,8 +79,8 @@ def create_booking(request):
         - Check that the booking time is within the
         selected shift's time range.
         - Verify that the selected table is available.
-        - Ensure no existing booking conflicts with the
-        same table, date, and shift.
+        - Ensure no existing booking conflicts with
+        the same table, date, and shift.
         - Save the booking if all checks pass and redirect to the booking list.
         - Display appropriate error messages if any checks fail.
     - If the request method is not POST:
@@ -98,69 +98,68 @@ def create_booking(request):
             selected_shift = booking.shift
             booking_time = booking.booking_time
 
-            # Check if the booking date is in the future
             if booking.booking_date < timezone.now().date():
-                messages.error(request, "Booking date must be in the future.")
-                return render(
-                    request,
-                    'booking/booking_form.html',
-                    {'form': form})
-
-            # Check if the booking time falls within the selected shift
-            if not (selected_shift.start_time <= booking_time <=
-                    selected_shift.end_time):
                 messages.error(
-                    request,
-                    f"Booking time must be between "
-                    f"{selected_shift.start_time} and "
-                    f"{selected_shift.end_time}"
-                    f" for the {selected_shift.name} shift.")
-            return render(
-                request,
-                'booking/booking_form.html',
-                {'form': form}
-            )
-
-            # Check if the table is available
-            if booking.table.status != 1:
-                messages.error(request, "The selected table is not available.")
+                    request, "Booking date must be in the future."
+                )
                 return render(
-                    request,
-                    'booking/booking_form.html',
-                    {'form': form}
+                    request, 'booking/booking_form.html', {'form': form}
                 )
 
-            # Check for existing bookings for the same
-            # table on the same date and shift
+            if not (
+                selected_shift.start_time <= booking_time <=
+                selected_shift.end_time
+            ):
+                msg = (
+                    f"Booking time must be between "
+                    f"{selected_shift.start_time} "
+                    f"and {selected_shift.end_time} "
+                    f"for the {selected_shift.name} shift."
+                )
+                messages.error(request, msg)
+                return render(
+                    request, 'booking/booking_form.html', {'form': form}
+                )
+
+            if booking.table.status != 1:
+                messages.error(
+                    request, "The selected table is not available."
+                )
+                return render(
+                    request, 'booking/booking_form.html', {'form': form}
+                )
+
             if Booking.objects.filter(
                 table=booking.table,
                 booking_date=booking.booking_date,
                 shift=booking.shift
             ).exists():
                 messages.error(
-                    request,
-                    "This table is already booked at the selected shift.")
+                    request, "This table is already booked at this time."
+
+                )
                 return render(
-                    request,
-                    'booking/booking_form.html',
-                    {'form': form})
+                    request, 'booking/booking_form.html', {'form': form}
+                )
 
-            # Save the booking
             booking.save()
-
             messages.success(
-                request,
-                "Your booking has been successfully created!")
+                request, "Your booking has been successfully created!"
+            )
             return redirect('booking_list')
 
         else:
             messages.error(request, "There was an error with your booking.")
-            return render(request, 'booking/booking_form.html', {'form': form})
+            return render(
+                request, 'booking/booking_form.html', {'form': form}
+            )
 
     else:
         form = BookingForm()
 
-    return render(request, 'booking/booking_form.html', {'form': form})
+    return render(
+        request, 'booking/booking_form.html', {'form': form}
+    )
 
 
 @login_required
