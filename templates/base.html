@@ -27,6 +27,8 @@
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
         rel="stylesheet" type="text/css">
+    <link rel="preload" href="{% static 'images/home-bg.jpg' %}" as="image">
+
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <!-- Custom styles for this template-->
@@ -37,7 +39,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="{% url 'home' %}">Red Chillies</a>
+            <a class="navbar-brand" href="{% url 'home' %}" aria-label="Home page link">Red Chillies</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
@@ -45,29 +47,29 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home' %}" aria-label="Home page link">Home</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-                            href="{% url 'menu_category_list' %}">Menu</a></li>
+                            href="{% url 'menu_category_list' %}" aria-label="Menu page link">Menu</a></li>
 
                     {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'booking_list' %}">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'booking_list' %}" aria-label="Booking page link">Booking</a></li>
                     <li class="nav-item">
                         <form id="logout-form" method="POST" action="{% url 'account_logout' %}" style="display: none;">
                             {% csrf_token %}
                         </form>
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#" onclick="document.getElementById('logout-form').submit();">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#" onclick="document.getElementById('logout-form').submit();" aria-label="Logout link">
                             Logout
                         </a>
                     </li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 nav-username" href="">Logged in as {{user}}</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 nav-username" href="" aria-label="Logged in as {{user}}">Logged in as {{user}}</a></li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link px-lg-3 py-3 py-lg-4 {% if request.path == signup_url %}active{% endif %}"
-                            href="{% url 'account_signup' %}">Register</a>
+                            href="{% url 'account_signup' %}" aria-label="Sign Up page link">Register</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link px-lg-3 py-3 py-lg-4 {% if request.path == login_url %}active{% endif %}"
-                            href="{% url 'account_login' %}">Login</a>
+                            href="{% url 'account_login' %}" aria-label="Login page link">Login</a>
                     </li>
                     {% endif %}
 
@@ -76,7 +78,12 @@
         </div>
     </nav>
 
-    <header class="masthead" style="background-image: url({% static "images/home-bg.webp" %});">
+    <!-- <header class="masthead" style="background-image: url({% static "images/home-bg.avif" %});"> -->
+    <header class="masthead" style="background-image: url({% static "images/home-bg.avif" %});">
+        <picture>
+            <source srcset="{% static 'images/home-bg.avif' %}" type="image/webp">
+            <img src="{% static 'images/home-bg.avif' %}" alt="Indian Local Foods" style="width: 100%; height: auto; display: none;">
+        </picture>
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -114,7 +121,7 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <ul class="list-inline text-center">
                         <li class="list-inline-item">
-                            <a href="https://www.facebook.com/" target="_blank">
+                            <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook page link">
                                 <span class="fa-stack fa-lg">
                                     <i class="fas fa-circle fa-stack-2x"></i>
                                     <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
@@ -122,7 +129,7 @@
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="https://www.youtube.com/" target="_blank">
+                            <a href="https://www.youtube.com/" target="_blank" aria-label="Youtube page link">
                                 <span class="fa-stack fa-lg">
                                     <i class="fas fa-circle fa-stack-2x"></i>
                                     <i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
@@ -131,7 +138,7 @@
                         </li>
                         
                         <li class="list-inline-item">
-                            <a href="https://www.instagram.com/" target="_blank">
+                            <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram page link">
                                 <span class="fa-stack fa-lg">
                                     <i class="fas fa-circle fa-stack-2x"></i>
                                     <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>

@@ -6,8 +6,8 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="flex-grow-1 mb-0">Menu</h2>
     {% if user.is_authenticated and user.is_staff %}
-    <a href="{% url 'create_menu_category' %}" class="btn btn-primary btn-sm btn-lg me-2">Create Category</a>
-    <a href="{% url 'create_menu_item' %}" class="btn btn-primary btn-sm btn-lg">Create Item</a>
+    <a href="{% url 'create_menu_category' %}" class="btn btn-primary btn-sm btn-lg me-2" aria-label="Create a category">Create Category</a>
+    <a href="{% url 'create_menu_item' %}" class="btn btn-primary btn-sm btn-lg" aria-label="Create a category item">Create Item</a>
     {% endif %}
 </div>
 
@@ -24,7 +24,7 @@
             {% if user.is_authenticated and user.is_staff %}
             <div class="ms-3 d-flex align-items-center">
                 <a href="{% url 'edit_menu_category' category.id %}" class="btn btn-warning btn-sm me-2"
-                    title="Edit Category">
+                    title="Edit Category" aria-label="Edit the category">
                     <i class="fas fa-edit"></i>
                 </a>
                 <!-- Trigger the modal with this button -->
@@ -65,11 +65,10 @@
                 <div class="row">
                     {% for item in category.menu_items.all %}
                     <div class="col-md-6 mb-3">
-                        <!-- Each item takes half of the row on medium screens and up -->
                         <div class="card" style="max-width: 540px;">
                             <div class="card-img-container">
                                 {% if "placeholder" in item.featured_image.url %}
-                                <img src="{% static 'images/default.jpg' %}" alt="placeholder image">
+                                <img src="{% static 'images/default.jpg' %}" alt="Menu placeholder image">
                                 {% else %}
                                 <img src="{{ item.featured_image.url }}" alt="{{ item.name }}">
                                 {% endif %}
@@ -77,11 +76,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ item.name }}</h5>
                                 {% if user.is_authenticated and user.is_staff %}
-                                <a href="{% url 'edit_menu_item' item.id %}" class="btn btn-warning btn-sm" title="Edit Item">
+                                <a href="{% url 'edit_menu_item' item.id %}" class="btn btn-warning btn-sm" title="Edit Item" aria-label="Edit the category item">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#confirmDeleteItemModal{{ item.id }}" title="Delete Item">
+                                    data-bs-target="#confirmDeleteItemModal{{ item.id }}" title="Delete Item" aria-label="Delete the category item">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
 

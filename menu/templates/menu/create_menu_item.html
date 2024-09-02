@@ -15,7 +15,7 @@
             <button type="submit" name="item_submit" class="btn btn-primary text-uppercase">
                 {% if item_id %}Update{% else %}Create Now{% endif %}
             </button>
-            <a href="{% url 'menu_category_list' %}" class="btn btn-secondary text-uppercase">Back to Booking List</a>
+            <a href="{% url 'menu_category_list' %}" class="btn btn-secondary text-uppercase" aria-label="Back to Category List">Back to Category List</a>
         </form>
     </div>
 </div>
