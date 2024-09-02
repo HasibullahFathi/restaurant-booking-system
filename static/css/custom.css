@@ -93,7 +93,6 @@ html, body {
     background-color: #333 !important;
 }
 
-
 /* modal to be clickable in mobile device*/
 .modal-backdrop {
     z-index: 1050 !important;

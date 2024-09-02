@@ -3,13 +3,6 @@
 {% load static %}
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="flex-grow-1 mb-0">Home page</h2>
-    {% if user.is_authenticated %}
-        <a href="{% url 'booking_list' %}" class="btn btn-primary btn-sm btn-lg" aria-label="View booking Details" aria-label="My booking list">My Booking</a>
-    {% endif %}
-</div>
-
 <!-- Section 1: Opening Times and Contact Information -->
 <div class="container my-5">
     <div class="row">
@@ -25,16 +18,12 @@
         <div class="col-md-6 bg-dark text-white p-4">
             <h2>Contact Us</h2>
             <p><strong>Address:</strong> <span class="p-4">Landau in der Pfalz<br>Albert Einstein Straße 111</span></p>
-            <!-- <p>Albert Einstein Straße 111<br>Landau in der Pfalz</p> -->
             <p><strong>Phone:</strong> <span class="p-4">0555 2227755</span></p>
             <p><strong>Email:</strong> <span class="p-4">red@chillies.de, info@redchillies.de</span></p>
         </div>
     </div>
 </div>
 
-
-<!-- Section 2: Photo Gallery or Event Information -->
-<!-- Section 2: Photo Gallery or Event Information -->
 <!-- Section 2: Photo Gallery or Event Information -->
 <div class="container my-5">
     <div class="row">
@@ -42,7 +31,7 @@
         <div class="col-md-6 mb-4">
             <div class="card h-60">
                 <div class="image-container">
-                    <img src="{% static 'images/gallery1.jpg' %}" class="card-img-top" alt="Gallery Image 1">
+                    <img src="{% static 'images/gallery1.avif' %}" class="card-img-top" alt="Gallery Image 1">
                 </div>
                 <div class="card-body-img">
                     <h3 class="card-title">Enjoy</h3>
@@ -59,7 +48,7 @@
         <div class="col-md-6 mb-4">
             <div class="card h-60">
                 <div class="image-container">
-                    <img src="{% static 'images/gallery2.jpg' %}" class="card-img-top" alt="Gallery Image 2">
+                    <img src="{% static 'images/gallery2.avif' %}" class="card-img-top" alt="Gallery Image 2">
                 </div>
                 <div class="card-body-img">
                     <h3 class="card-title">Celebrate</h3>
@@ -79,7 +68,7 @@
         <div class="col-md-6 mb-4">
             <div class="card h-60">
                 <div class="image-container">
-                    <img src="{% static 'images/gallery3.jpg' %}" class="card-img-top" alt="Gallery Image 3">
+                    <img src="{% static 'images/gallery3.avif' %}" class="card-img-top" alt="Gallery Image 3">
                 </div>
                 <div class="card-body-img">
                     <h3 class="card-title">Relax</h3>
@@ -94,7 +83,7 @@
         <div class="col-md-6 mb-4">
             <div class="card h-60">
                 <div class="image-container">
-                    <img src="{% static 'images/gallery4.jpg' %}" class="card-img-top" alt="Gallery Image 4">
+                    <img src="{% static 'images/gallery4.avif' %}" class="card-img-top" alt="Gallery Image 4">
                 </div>
                 <div class="card-body-img">
                     <h3 class="card-title">Try Specials</h3>

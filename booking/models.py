@@ -20,7 +20,6 @@ class Profile(models.Model):
         return self.user.username
 
 
-# 2. Table Model
 class Table(models.Model):
     """
     Represents a table in the restaurant.
@@ -62,7 +61,6 @@ class Shift(models.Model):
         return f"{self.name} ({self.start_time} - {self.end_time})"
 
 
-# 3. Booking Model
 class Booking(models.Model):
     """
     Represents a booking made by a user.
