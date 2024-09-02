@@ -10,143 +10,272 @@ It is not an actual site for a restaurant, this is a project to show my coding k
 [https://red-chillies-df2854b5e6de.herokuapp.com/](https://red-chillies-df2854b5e6de.herokuapp.com/)
 
 
-## Contents
-
-- [Features](#features)
-  - [Navigation bar](#navigation-bar)
-  - [Home page](#home-page)
-  - [Menu](#menu)
-    - [Show menu categories](#show-menu-categories)
-    - [Add menu categories (if the user is Admin)](#add-menu-categories-if-the-user-is-admin)
-    - [Delete menu categories (if the user is Admin)](#delete-menu-categories-if-the-user-is-admin)
-    - [Edit menu categories (if the user is Admin)](#edit-menu-categories-if-the-user-is-admin)
-    - [Show menu items](#show-menu-items)
-    - [Add menu items (if the user is Admin)](#add-menu-items-if-the-user-is-admin)
-    - [Delete menu items (if the user is Admin)](#delete-menu-items-if-the-user-is-admin)
-    - [Edit menu items (if the user is Admin)](#edit-menu-items-if-the-user-is-admin)
-  - [Booking](#booking)
-    - [See the booking list (if logged in)](#see-the-booking-list-if-logged-in)
-    - [Paginate booking list](#paginate-booking-list)
-    - [View booking](#view-booking)
-    - [Create booking (if logged in)](#create-booking-if-logged-in)
-    - [Edit all bookings (if logged in)](#edit-all-bookings-if-logged-in)
-    - [Delete/Cancel bookings (if logged in)](#deletecancel-bookings-if-logged-in)
-  - [Register](#register)
-    - [Create a profile automatically](#create-a-profile-automatically)
-  - [Login](#login)
-  - [Logout](#logout)
-  - [Personalization](#personalization)
-- [Footer](#footer)
-- [Testing](#testing)
-  - [Manual testing](#manual-testing)
-  - [Validation](#validation-1)
-    - [Python](#python)
-    - [Javascript](#javascript)
-    - [HTML](#html)
-    - [CSS](#css)
-- [Bugs](#bugs)
-- [Development process](#development-process)
-  - [Development preparation](#development-preparation)
-  - [Agile Development](#agile-development)
-  - [Git](#git)
-- [Deployment](#deployment)
-  - [Preparations](#preparations)
-  - [Setup](#setup)
-- [Credits](#credits)
-  - [Usage technologies and tools](#usage-technologies-and-tools)
-  - [Django Apps](#django-apps)
-  - [Content and media](#content-and-media)
-  - [Acknowledgements](#acknowledgements)
-
----
-
 ## Features
 
 ### Navigation bar
-- the
+The navigation bar is the first element that appears on each page.
+- Left Side: The restaurant name, which navigates to the home page.
+- Right Side:
+  - Home: Linked to the home page.
+  - Menu: Navigates to a list of menu categories.
+  - Logout: Logs the user out.
+  - Username: Displays the username of the logged-in user.
+  - ![Responsive Mockup](/media/home-img.png)
+When the user is logged out, the username and logout links are replaced by login and register links.
+  - ![Responsive Mockup](/media/login-img.png)
+The navigation is fully responsive across all screen sizes.
 
 ### Home page
+The homepage features an eye-catching hero image and hero text as the second element that appears after landing on the page.
+- First Section: Displays the restaurant's opening and closing times.
+- ![Fiest section Mockup](/media/section1-img.png)
+- Second Section: Contains photos accompanied by descriptive text.
+- ![second section Mockup](/media/section2-img.png)
+- Third Section: An "About" section providing short information about Red Chillies.
+- ![third section Mockup](/media/section3-img.png)
 
 ## Menu
+This is where all the restaurant's menu items and categories are listed. Users do not need to log in to view the menu.
 
 ### Show menu categories
+- Menu categories are listed on the menu page as collapsible buttons.
 
 ### Add menu categories (if the user is Admin)
+If the user is an Admin, they will see an "Add Category" button at the top of the category list. This button opens a form where the user can add a new category name, which must be unique.
+- The form is validated with backend validation to guide the user in case of errors.
+- The user will see a confirmation message, error message, or success message after attempting to add a category.
 
 ### Delete menu categories (if the user is Admin)
+At the right side of each category's collapse button is a delete/cancel button. When clicked, a confirmation modal appears, asking the user to confirm the deletion of the selected category. This action is available only if the user is logged in and has admin permissions.
+- The user receives a confirmation message or an error message depending on the success of the deletion.
 
 ### Edit menu categories (if the user is Admin)
+Next to the delete button on each category's collapse button is an edit button. Clicking this opens the edit form for the selected category. This feature is accessible only to logged-in users with admin permissions.
+- The form includes backend validation to guide the user in case of errors.
+- After attempting to update a category, the user sees a confirmation message or an error message.
 
 ### Show menu items
+Clicking the collapse button of a specific category reveals the menu items belonging to that category. These items are displayed in cards that include:
+- Item pictures
+- Status (Available or not)
+- Price
+- Details of the item
 
 ### Add menu items (if the user is Admin)
+At the top of the category list, there is an "Add Item" button. Clicking this opens a form where the user can add a new item. The form requires:
+- A unique item name
+- A description (optional)
+- A price (must be greater than zero)
+- The item's status
+- Category selection
+- An option to upload a picture (if no picture is chosen, a default image will be set)
+- This action is available only if the user is logged in and has admin permissions.
+- The form is validated with backend checks to ensure accuracy.
+- After attempting to add a menu item, the user receives a confirmation message or an error message.
 
 ### Delete menu items (if the user is Admin)
+Below each item's image is a delete button. Clicking this button opens a confirmation modal. After confirming, the item will be deleted from the system. This feature is available only if the user is logged in and has admin permissions.
+- The user will receive a confirmation message or an error message depending on the success of the deletion.
 
 ### Edit menu items (if the user is Admin)
+Below each item's image is an edit button. Clicking this button opens an edit form prefilled with the current item's data. This allows the user to update the item’s details. This feature is available only if the user is logged in and has admin permissions.
+- The form includes backend validation to guide the user in case of errors.
+- The user will see a confirmation message or an error message after attempting to update a menu item.
 
 ## Booking
+- This section displays all table reservations.
 
 ### See the booking list (if logged in)
+If the user is logged in, a "My Booking" button appears on the home page, which navigates the user to a booking list ordered by booking date in a table format.
+- Each user can see only their own reservations.
+- Users with admin permissions can view all reservations.
 
 ### Paginate booking list
+The booking list is paginated, displaying 8 items per page. The number of pages is shown at the bottom of the list.
 
-### View booking
+### View booking details
+By clicking the open icon on the right side of the table under the "Action" column, the user can view all details of the selected booking on a dedicated page.
+- A "Back to Booking List" button at the bottom of the card allows the user to navigate back to the booking list.
 
 ### Create booking (if logged in)
+At the top right of the booking page, there is a "Create Booking" button that opens the reservation form. Every logged-in user can create a booking by filling out the form and submitting it, provided the following conditions are met:
+- Select Shift: The user must choose an available opening/closing time (shift).
+- Availability: The user can only reserve a table that is available during the selected shift. Duplicate reservations are not allowed.
+- Time Selection: The user must select a time within the opening and closing hours of the selected shift. Reservations outside these hours are not permitted.
+- Future Date: The booking date must be in the future. Past dates are not allowed.
+- Guest Count: The number of guests must be greater than zero.
+
+The form includes backend validation to guide the user in case of errors. After submission, the user will see a confirmation message indicating whether the booking was successful or if there was an error. The "Back to Booking List" button at the end of the form returns the user to the booking list.
 
 ### Edit all bookings (if logged in)
+Clicking the edit icon on the right side of the booking list, under the "Action" column, opens a pre-filled form with the data of the selected booking. Every logged-in user can edit their booking by modifying the details and submitting the form, provided the following conditions are met:
+- Select Shift: The user must choose an available opening/closing time (shift).
+- Availability: The user can only reserve a table that is available during the selected shift. Duplicate reservations are not allowed.
+- Time Selection: The user must select a time within the opening and closing hours of the selected shift. Reservations outside these hours are not permitted.
+- Future Date: The booking date must be in the future. Past dates are not allowed.
+- Guest Count: The number of guests must be greater than zero.
+
+The form includes backend validation to guide the user in case of errors. After submission, the user will receive a confirmation message indicating whether the update was successful or if there was an error.
 
 ### Delete/Cancel bookings (if logged in)
+Clicking the delete icon on the right side of the booking list, under the "Action" column, opens a confirmation modal. Every logged-in user can delete their booking by confirming the deletion.
+- The user will receive a confirmation message indicating whether the deletion was successful or if there was an error.
 
 ## Register
+To access features reserved for members of the website, such as online reservations, users must register. The registration page can be accessed via the link in the navigation bar or through various links available throughout the website.
+
+To become a member, the user needs to provide the following information:
+
+- Username
+- Email (Optional)
+- Password
+- Confirm Password
+
+If the provided information is valid and the username is not already taken, the user is automatically logged in and redirected to the home page. Upon successful registration, a confirmation success message is displayed.
 
 ### Create a profile automatically
+By default, when a user registers, the system automatically creates a user profile. The admin or super admin can then assign admin permissions to the user if necessary. Note that without a profile, a user cannot book a table.
 
 ## Login
+If an unauthenticated member wants to use features reserved for members, such as booking a table, they must first log in. The login page can be accessed via the navigation bar or through various links available throughout the website.
+
+To log in, the user must enter:
+
+- Username
+- Password
+
+If the username and/or password are incorrect, the form reloads, informing the user of the error. Upon successful login, a confirmation success message is displayed.
 
 ## Logout
+The logout option is visible in the navigation bar when the user is logged in. Clicking the logout button ensures that no one else can access the user's information, especially on a shared or public device.
+
+Upon clicking the logout button:
+
+- The user is immediately logged out and redirected to the homepage.
+- The user's session data is cleared.
+- Access to secure pages is restricted until the user logs in again.
+
+A confirmation success message is displayed when the user logs out.
+
+## Confirmation Messages
+For almost all actions in the system, confirmation messages are used to indicate the result of the action. These can be error or success messages.
 
 ## Personalization
+When a user is logged in, their username is displayed on the right side of the navigation bar.
 
 ## Footer
+The footer displays the copyright text and links to various social media websites. Each link opens in a new tab.
+
+## Additional Features
+Features that could be implemented in the future include:
+
+- Notification System: Allow users (both admin and regular users) to receive notifications regarding any changes or new bookings.
+- Search Functionality: Search for menu items, categories and bookings.
+- Filter/Search Bookings: Filter or search bookings by specific fields.
+- Online Food Ordering: Implement an online food ordering system.
 
 ## Testing
-
 ### Manual testing
+This project has been tested manually from both a design and functionality perspective, ensuring that it meets user stories and responsiveness requirements.
 
-### Validation
+#### Validation:
+- Python
+  - 
+- JavaScript
+  - 
+- HTML
+  - 
+- CSS
+  - 
+- Lighthouse Report
+  - 
 
-#### Python
-
-#### Javascript
-
-#### HTML
-
-#### CSS
+List of the Tests (Link to the file)
 
 ## Bugs
+- There were no unfixed bugs.
+
+### Fixed Bugs
+- Modal Issue for Deleting Reservations: There was a problem with the modal for deleting a reservation where the delete and cancel buttons were not clickable on actual phones, though they worked on computer browsers and different screen sizes. This issue was fixed by removing the modal from being a child of the table.
+
+- Date and Time Picker Issue: The date and time picker was not working with the crispy forms. This issue was resolved by adding form fields in forms.py to allow users to input date and time values with the proper format.
 
 ## Development process
+In the process of developing this project, I followed agile principles as closely as possible. Various tools and methods were employed to design and analyze the development process.
 
 ### Development preparation
+- User Stories: Defined what functionalities the system should have.
+  - User Stories Link (Provide the link to the user stories document)
+- Wireframe: Initial design mockups of the pages in the system.
+  - (Insert the photo of the wireframe)
+- ERD (Entity-Relationship Diagram): Outlined the data needed to work with and the fields of the models.
+  - (Insert the photo of the ERD)
 
 ### Agile Development
+- Issue Gathering and Analysis: Collected and analyzed issues.
+- Breakdown: Split issues into smaller, manageable user stories for easier tracking.
+- Acceptance Criteria: Further divided user stories into more manageable and understandable acceptance criteria.
+- Prioritization: Ordered user stories based on priority for development.
+- Task Management: Used a task board to track progress by moving tasks from "To Do" to "In Progress" and then to "Done" upon completion.
 
 ### Git
+- Version Control: Used the Code Institute CI-Full Template for version control. CI-Full Template Repository
+- Commit and Push: Regularly added and committed changes with descriptive and concise comments, then pushed them to Git for version control.
+- Issue Resolution: Pulled specific commits to review changes that caused issues when necessary.
 
 ## Deployment
+The site was deployed on Heroku.
 
 ### Preparations
+- DEBUG Setting: Set DEBUG to False in settings.py.
+- Dependencies: Stored all dependencies in the requirements.txt file using the command: pip3 freeze --local > requirements.txt
+- Procfile Creation: Created a Procfile with the following command: echo "web: gunicorn red_chillies.wsgi" > Procfile
 
-### Setup
+### Deployment Setup
+To deploy this project on Heroku, follow these steps:
+
+- Create a Heroku App:
+  - Go to the Heroku Dashboard.
+  - Click "New" and select "Create new app."
+  - Enter a unique name for your app and select a region.
+
+- Configure Environment Variables:
+  - Navigate to the "Settings" tab of your Heroku app.
+  - Click "Reveal Config Vars" and add the following environment variables:
+    - DJANGO_SETTINGS_MODULE: Your Django settings module.
+    - DATABASE_URL: Your database URL (if using a database add-on like Heroku Postgres).
+    - SECRET_KEY: Your Django secret key.
+    - CLOUDINARY_URL: Your Cloudinary API URL (includes API key, secret, and cloud name).
+
+- Add Buildpack:
+  - In the "Settings" tab, scroll to the "Buildpacks" section.
+  - Click "Add Buildpack" and select heroku/python.
+
+- Deploy from GitHub:
+  - Go to the "Deploy" tab.
+  - In the "Deployment method" section, select "Connect to GitHub."
+  - Search for your project name and connect the repository.
+
+- Choose Deployment Method:
+  - You can choose between Automatic Deploys and Manual Deploys. During development, I chose Manual Deploys to deploy changes manually after pushing updates to Git.
 
 ## Credits
+### Usage Technologies and Tools
+- Django: Web framework used for development.
+- Bootstrap: Frontend framework for styling and responsiveness.
+- Heroku: Platform for deploying and hosting the web application.
+- ...
 
 ### Usage technologies and tools
 
+
 ### Django Apps
+- Django Crispy Forms: For rendering forms with Bootstrap styles.
+- Cloudinary: For media management and image hosting.
 
 ### Content and media
+- Images: All images were downloaded from Pexels.
+- Icons: All icons on the website are from FontAwesome.
 
 ### Acknowledgements
+- Special thanks to the contributors and resources that made this project possible.
