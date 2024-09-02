@@ -4,7 +4,6 @@
 {% load crispy_forms_tags %}
 
 <h1>{% if category_id %}Edit{% else %}Create{% endif %} Category</h1>
-<p>this is category id {{category_id}}</p>
 {% if user.is_authenticated and user.is_staff %}
 
 <div class="row gx-4 gx-lg-5 justify-content-center">

@@ -190,7 +190,7 @@ def create_menu_item(request):
                 item_form.save()
                 messages.success(
                     request, "The menu item has been successfully created.")
-                return redirect('create_menu_item')
+                return redirect('menu_category_list')
     else:
         item_form = MenuItemForm()
 

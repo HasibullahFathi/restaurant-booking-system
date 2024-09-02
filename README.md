@@ -20,9 +20,9 @@ The navigation bar is the first element that appears on each page.
   - Menu: Navigates to a list of menu categories.
   - Logout: Logs the user out.
   - Username: Displays the username of the logged-in user.
-  - ![Responsive Mockup](/media/home-img.png)
+  - ![Home page Mockup](/media/home-img.png)
 When the user is logged out, the username and logout links are replaced by login and register links.
-  - ![Responsive Mockup](/media/login-img.png)
+  - ![Login page Mockup](/media/login.png)
 The navigation is fully responsive across all screen sizes.
 
 ### Home page
@@ -30,7 +30,6 @@ The homepage features an eye-catching hero image and hero text as the second ele
 - First Section: Displays the restaurant's opening and closing times.
 - ![Fiest section Mockup](/media/section1-img.png)
 - Second Section: Contains photos accompanied by descriptive text.
-- ![second section Mockup](/media/section2-img.png)
 - Third Section: An "About" section providing short information about Red Chillies.
 - ![third section Mockup](/media/section3-img.png)
 
@@ -39,20 +38,24 @@ This is where all the restaurant's menu items and categories are listed. Users d
 
 ### Show menu categories
 - Menu categories are listed on the menu page as collapsible buttons.
+- ![Category Mockup](/media/menu-category.png)
 
 ### Add menu categories (if the user is Admin)
 If the user is an Admin, they will see an "Add Category" button at the top of the category list. This button opens a form where the user can add a new category name, which must be unique.
 - The form is validated with backend validation to guide the user in case of errors.
 - The user will see a confirmation message, error message, or success message after attempting to add a category.
+- ![Add Category Mockup](/media/category-form.png)
 
 ### Delete menu categories (if the user is Admin)
 At the right side of each category's collapse button is a delete/cancel button. When clicked, a confirmation modal appears, asking the user to confirm the deletion of the selected category. This action is available only if the user is logged in and has admin permissions.
 - The user receives a confirmation message or an error message depending on the success of the deletion.
+- ![Delete Category Mockup](/media/delete-category.png)
 
 ### Edit menu categories (if the user is Admin)
 Next to the delete button on each category's collapse button is an edit button. Clicking this opens the edit form for the selected category. This feature is accessible only to logged-in users with admin permissions.
 - The form includes backend validation to guide the user in case of errors.
 - After attempting to update a category, the user sees a confirmation message or an error message.
+- ![Edit Category Mockup](/media/edit-category.png)
 
 ### Show menu items
 Clicking the collapse button of a specific category reveals the menu items belonging to that category. These items are displayed in cards that include:
@@ -60,6 +63,7 @@ Clicking the collapse button of a specific category reveals the menu items belon
 - Status (Available or not)
 - Price
 - Details of the item
+- ![Menu list Mockup](/media/menu-list.png)
 
 ### Add menu items (if the user is Admin)
 At the top of the category list, there is an "Add Item" button. Clicking this opens a form where the user can add a new item. The form requires:
@@ -72,15 +76,18 @@ At the top of the category list, there is an "Add Item" button. Clicking this op
 - This action is available only if the user is logged in and has admin permissions.
 - The form is validated with backend checks to ensure accuracy.
 - After attempting to add a menu item, the user receives a confirmation message or an error message.
+- ![Create menu Mockup](/media/menu-form.png)
 
 ### Delete menu items (if the user is Admin)
 Below each item's image is a delete button. Clicking this button opens a confirmation modal. After confirming, the item will be deleted from the system. This feature is available only if the user is logged in and has admin permissions.
 - The user will receive a confirmation message or an error message depending on the success of the deletion.
+- ![Delete menu Mockup](/media/delete-menu-item.png)
 
 ### Edit menu items (if the user is Admin)
 Below each item's image is an edit button. Clicking this button opens an edit form prefilled with the current item's data. This allows the user to update the item’s details. This feature is available only if the user is logged in and has admin permissions.
 - The form includes backend validation to guide the user in case of errors.
 - The user will see a confirmation message or an error message after attempting to update a menu item.
+- ![Edit menu Mockup](/media/edit-menu-form.png)
 
 ## Booking
 - This section displays all table reservations.
@@ -89,6 +96,7 @@ Below each item's image is an edit button. Clicking this button opens an edit fo
 If the user is logged in, a "My Booking" button appears on the home page, which navigates the user to a booking list ordered by booking date in a table format.
 - Each user can see only their own reservations.
 - Users with admin permissions can view all reservations.
+- ![Booking list Mockup](/media/booking-list.png)
 
 ### Paginate booking list
 The booking list is paginated, displaying 8 items per page. The number of pages is shown at the bottom of the list.
@@ -96,6 +104,7 @@ The booking list is paginated, displaying 8 items per page. The number of pages 
 ### View booking details
 By clicking the open icon on the right side of the table under the "Action" column, the user can view all details of the selected booking on a dedicated page.
 - A "Back to Booking List" button at the bottom of the card allows the user to navigate back to the booking list.
+- ![Booking details Mockup](/media/booking-details.png)
 
 ### Create booking (if logged in)
 At the top right of the booking page, there is a "Create Booking" button that opens the reservation form. Every logged-in user can create a booking by filling out the form and submitting it, provided the following conditions are met:
@@ -106,6 +115,7 @@ At the top right of the booking page, there is a "Create Booking" button that op
 - Guest Count: The number of guests must be greater than zero.
 
 The form includes backend validation to guide the user in case of errors. After submission, the user will see a confirmation message indicating whether the booking was successful or if there was an error. The "Back to Booking List" button at the end of the form returns the user to the booking list.
+- ![Booking Form Mockup](/media/booking-form.png)
 
 ### Edit all bookings (if logged in)
 Clicking the edit icon on the right side of the booking list, under the "Action" column, opens a pre-filled form with the data of the selected booking. Every logged-in user can edit their booking by modifying the details and submitting the form, provided the following conditions are met:
@@ -116,10 +126,12 @@ Clicking the edit icon on the right side of the booking list, under the "Action"
 - Guest Count: The number of guests must be greater than zero.
 
 The form includes backend validation to guide the user in case of errors. After submission, the user will receive a confirmation message indicating whether the update was successful or if there was an error.
+- ![Edit Booking form Mockup](/media/edit-booking-form.png)
 
 ### Delete/Cancel bookings (if logged in)
 Clicking the delete icon on the right side of the booking list, under the "Action" column, opens a confirmation modal. Every logged-in user can delete their booking by confirming the deletion.
 - The user will receive a confirmation message indicating whether the deletion was successful or if there was an error.
+- ![Delete Booking Mockup](/media/delete-booking.png)
 
 ## Register
 To access features reserved for members of the website, such as online reservations, users must register. The registration page can be accessed via the link in the navigation bar or through various links available throughout the website.
@@ -132,6 +144,7 @@ To become a member, the user needs to provide the following information:
 - Confirm Password
 
 If the provided information is valid and the username is not already taken, the user is automatically logged in and redirected to the home page. Upon successful registration, a confirmation success message is displayed.
+- ![Singn Up page Mockup](/media/signup.png)
 
 ### Create a profile automatically
 By default, when a user registers, the system automatically creates a user profile. The admin or super admin can then assign admin permissions to the user if necessary. Note that without a profile, a user cannot book a table.
@@ -145,6 +158,7 @@ To log in, the user must enter:
 - Password
 
 If the username and/or password are incorrect, the form reloads, informing the user of the error. Upon successful login, a confirmation success message is displayed.
+- ![Login page Mockup](/media/login.png)
 
 ## Logout
 The logout option is visible in the navigation bar when the user is logged in. Clicking the logout button ensures that no one else can access the user's information, especially on a shared or public device.
@@ -159,12 +173,14 @@ A confirmation success message is displayed when the user logs out.
 
 ## Confirmation Messages
 For almost all actions in the system, confirmation messages are used to indicate the result of the action. These can be error or success messages.
+- ![Confirmation alert Mockup](/media/alert.png)
 
 ## Personalization
 When a user is logged in, their username is displayed on the right side of the navigation bar.
 
 ## Footer
 The footer displays the copyright text and links to various social media websites. Each link opens in a new tab.
+- ![Footer Mockup](/media/footer.png)
 
 ## Additional Features
 Features that could be implemented in the future include:
@@ -180,15 +196,15 @@ This project has been tested manually from both a design and functionality persp
 
 #### Validation:
 - Python
-  - 
+  - ![Python validation Mockup](/media/python-validation.png)
 - JavaScript
-  - 
+  - ![Javascript validation Mockup](/media/js-validation.png)
 - HTML
-  - 
+  - ![HTML validation Mockup](/media/html-validation.png)
 - CSS
-  - 
+  - ![CSS validation Mockup](/media/css-vlidation.png)
 - Lighthouse Report
-  - 
+  - ![Lighthouse report Mockup](/media/lighthouse-vlidation.png)
 
 List of the Tests (Link to the file)
 
