@@ -4,6 +4,14 @@ from .models import Booking, Table, Shift
 
 
 class BookingForm(forms.ModelForm):
+    """
+    Form for creating and updating bookings.
+
+    - Provides fields for selecting a shift, booking time, date, table,
+      phone number, number of guests, and remarks.
+    - Filters table choices based on availability.
+    - Validates that the number of guests is at least one.
+    """
     shift = forms.ModelChoiceField(
         queryset=Shift.objects.all(),
         empty_label="Select a Shift"
