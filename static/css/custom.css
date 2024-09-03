@@ -102,6 +102,17 @@ html, body {
     z-index: 1060 !important;
 }
 
+header.masthead:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    opacity: 0.7;
+}
+
 /* media queries for screen smaller than tablet */
 @media screen and (max-width: 990px) {
     .nav-style {
