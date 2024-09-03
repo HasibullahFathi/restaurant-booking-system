@@ -2,9 +2,22 @@
 
 ![Responsive Mockup](/media/main-img.png)
 
-## Objective
 Red Chillies is an imaginary restaurant reservation web page that brings facilities like reserve online tables, manage their reservations, check menu, and so on. 
 It is not an actual site for a restaurant, this is a project to show my coding knowledge and using technologies.
+
+## Porpose 
+This online restaurant booking system offers several key benefits:
+
+### For Restaurant Owners:
+- Increased Efficiency: Streamlines table management, reducing manual work.
+- Better Customer Insights: Tracks reservations, preferences, and peak times.
+- Enhanced Marketing: Collects customer data for targeted promotions.
+
+### For Guests:
+- Convenience: Allows 24/7 reservations from any device.
+- Immediate Confirmation: Provides instant booking confirmations and updates.
+- Reduced Wait Times: Ensures a reserved table, minimizing wait upon arrival.
+
 
 ## Live Page
 [https://red-chillies-df2854b5e6de.herokuapp.com/](https://red-chillies-df2854b5e6de.herokuapp.com/)
