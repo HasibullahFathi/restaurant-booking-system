@@ -285,8 +285,8 @@ The site was deployed on Heroku.
 
 ### Preparations
 - DEBUG Setting: Set DEBUG to False in settings.py.
-- Dependencies: Stored all dependencies in the requirements.txt file using the command: pip3 freeze --local > requirements.txt
-- Procfile Creation: Created a Procfile with the following command: echo "web: gunicorn red_chillies.wsgi" > Procfile
+- Dependencies: Stored all dependencies in the requirements.txt file using the command: `pip3 freeze --local > requirements.txt`
+- Procfile Creation: Created a Procfile with the following command: `echo "web: gunicorn red_chillies.wsgi" > Procfile`
 
 ### Deployment Setup
 To deploy this project on Heroku, follow these steps:

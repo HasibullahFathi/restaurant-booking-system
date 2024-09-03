@@ -20,7 +20,8 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.webp' %}">
     <!-- Font Awesome icons (free version)-->
     
-    <link rel="preload" href="{% static 'images/home-bg.jpg' %}" as="image">
+    <link rel="preload" href="{% static 'images/home-bg.avif' %}" as="image">
+ 
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
         type="text/css">
@@ -78,12 +79,7 @@
         </div>
     </nav>
 
-    <!-- <header class="masthead" style="background-image: url({% static "images/home-bg.avif" %});"> -->
     <header class="masthead" style="background-image: url({% static "images/home-bg.avif" %});">
-        <picture>
-            <source srcset="{% static 'images/home-bg.avif' %}" type="image/webp">
-            <img src="{% static 'images/home-bg.avif' %}" alt="Indian Local Foods" style="width: 100%; height: auto; display: none;">
-        </picture>
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
