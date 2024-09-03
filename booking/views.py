@@ -292,3 +292,7 @@ def delete_booking(request, booking_id):
 
     messages.success(request, "The booking has been successfully deleted.")
     return redirect('booking_list')
+
+
+def custom_404_view(request, exception=None):
+    return render(request, '404.html', status=404)

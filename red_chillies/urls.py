@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from booking.views import custom_404_view
 
 urlpatterns = [
     path("accounts/", include("allauth.urls")),
@@ -23,3 +24,6 @@ urlpatterns = [
     path("menu/", include("menu.urls"), name="menu-urls"),
     path("", include("booking.urls"), name="booking-urls"),
 ]
+
+# Custom 404 error handler
+handler404 = 'booking.views.custom_404_view'

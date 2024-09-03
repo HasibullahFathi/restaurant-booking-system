@@ -154,6 +154,12 @@ Clicking the delete icon on the right side of the booking list, under the "Actio
 
 ![Delete Booking Mockup](/media/delete-booking.png)
 
+## Restaurant Tables
+Creating, updating and deleting tables are at the moment only form admin panel posible.
+
+## Shift(Opening/Closing times)
+Creating, updating and deleting Shifts are at the moment only form admin panel posible.
+
 ## Register
 To access features reserved for members of the website, such as online reservations, users must register. The registration page can be accessed via the link in the navigation bar or through various links available throughout the website.
 
@@ -255,7 +261,7 @@ In the process of developing this project, I followed agile principles as closel
 
 ### Development preparation
 - User Stories: Defined what functionalities the system should have.
-  - User Stories Link (Provide the link to the user stories document)
+  - User Stories Link [GitHub Project](https://github.com/users/HasibullahFathi/projects/5/views/1)
 - Wireframe: Initial design mockups of the pages in the system.
 
   ![Home page](/media/home-wireframe.png)
@@ -289,7 +295,7 @@ The site was deployed on Heroku.
 - Procfile Creation: Created a Procfile with the following command: `echo "web: gunicorn red_chillies.wsgi" > Procfile`
 
 ### Deployment Setup
-To deploy this project on Heroku, follow these steps:
+To deploy a project on Heroku, follow these steps:
 
 - Create a Heroku App:
   - Go to the Heroku Dashboard.
@@ -317,7 +323,7 @@ To deploy this project on Heroku, follow these steps:
   - You can choose between Automatic Deploys and Manual Deploys. During development, I chose Manual Deploys to deploy changes manually after pushing updates to Git.
 
 ## Credits
-- Special thanks from my mentor Moritz Wach for his support and guidance.
+Special thanks from my mentor Moritz Wach for his support and guidance.
 
 ### Usage Technologies and Tools
 - [Django:](https://www.djangoproject.com/) Web framework used for development.
